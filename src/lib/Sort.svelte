@@ -36,7 +36,12 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<span style="cursor:pointer;white-space: nowrap;" on:click={functionUpdateSortConfig}>
+<span
+	role="button"
+	tabindex="0"
+	style="cursor:pointer;white-space: nowrap;"
+	on:click={functionUpdateSortConfig}
+>
 	<slot />
 	{#if propDatatable.stringSortBy === propColumn}
 		{#if propDatatable.stringSortOrder === 'ascending'}
