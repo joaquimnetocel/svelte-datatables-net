@@ -16,7 +16,8 @@
 		"sortable table",
 		"datatables.net",
 		"svelte",
-		"sveltekit"
+		"sveltekit",
+		"svelte4"
 	],
 	"author": "Joaquim Neto <joaquim.neto.cel@gmail.com>",
 	"license": "ISC",
@@ -41,7 +42,7 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "^3.54.0"
+		"svelte": "^3.54.0 || ^4.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
@@ -51,7 +52,7 @@
 		"@typescript-eslint/parser": "^5.45.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte3": "^4.0.0",
+		"eslint-plugin-svelte": "^2.30.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
 		"publint": "^0.1.9",
@@ -65,6 +66,6 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"pagination-svelte": "^0.1.2"
+		"pagination-svelte": "^0.1.4"
 	}
 }
