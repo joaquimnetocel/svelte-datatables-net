@@ -13,11 +13,11 @@
 		propDatatable.arraySearched = functionSearch(
 			propDatatable.arraySorted,
 			propDatatable.stringSearchString,
-			propDatatable.arraySearchableColumns
+			propDatatable.arraySearchableColumns,
 		);
 		propDatatable.arrayData = propDatatable.arraySearched.slice(
 			propDatatable.numberFirstRow,
-			propDatatable.numberLastRow
+			propDatatable.numberLastRow,
 		);
 	}
 	$: {
@@ -26,7 +26,7 @@
 		propDatatable.numberLastRow = propDatatable.numberActivePage * propDatatable.numberRowsPerPage;
 		propDatatable.arrayData = propDatatable.arraySearched.slice(
 			propDatatable.numberFirstRow,
-			propDatatable.numberLastRow
+			propDatatable.numberLastRow,
 		);
 	}
 </script>

@@ -46,11 +46,11 @@ npm install svelte-datatables-net
 | - | - | - | - | - |
 | `parData` | AN ARRAY WITH THE DATA. | `Generic[]` | YES | - |
 | `parSearchableColumns` | AN ARRAY WITH THE SEARCHABLE COLUMNS (KEYS OF `parData`). |`(keyof Generic)[]` | NO | `undefined` |
-| `parSearchString` | THE SEARCH STRING CAN BE SET PREVIOUSLY WITH THIS PROP. | `string` | NO | `''` (EMPTY STRING)
-| `parRowsPerPage` | THE INITIAL NUMBER OF ROWS PER PAGE. | `string` (NUMERIC STRING OR `'all'`) | NO | `'all'`
-| `parSortBy` | THE INITIAL SORT COLUMN (A KEY OF `parData`). | `keyof Generic` | NO | `undefined` (NO INITIAL SORTING)
+| `parSearchString` | THE SEARCH STRING CAN BE SET PREVIOUSLY WITH THIS PROP. | `string` | NO | `''` (EMPTY STRING) |
+| `parRowsPerPage` | THE INITIAL NUMBER OF ROWS PER PAGE. | `string` (NUMERIC STRING OR `'all'`) | NO | `'all'` |
+| `parSortBy` | THE INITIAL SORT COLUMN (A KEY OF `parData`). | `keyof Generic` | NO | `undefined` (NO INITIAL SORTING) |
 | parSortOrder | THE INITIAL SORT ORDER | 'ascending' OR 'descending' | NO | 'ascending' |
-| `parSortFunction` | A COMPARE FUNCTION THAT SPECIFIES THE INITIAL SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | (a: Generic, b: Generic) => number | NO | A STANDARD FUNCTION TO SORT ALPHABETICALLY.
+| `parSortFunction` | A COMPARE FUNCTION THAT SPECIFIES THE INITIAL SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | (a: Generic, b: Generic) => number | NO | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
 
 - PROPS OF `Engine`:
 

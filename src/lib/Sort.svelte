@@ -10,7 +10,7 @@
 	type typeSortFunction = (a: typeData, b: typeData) => number;
 	export let propSortFunction: typeSortFunction = function (
 		elementA: typeData,
-		elementB: typeData
+		elementB: typeData,
 	) {
 		const sortModifier = propDatatable.stringSortOrder === 'ascending' ? 1 : -1;
 		if (elementA[propColumn] < elementB[propColumn]) {

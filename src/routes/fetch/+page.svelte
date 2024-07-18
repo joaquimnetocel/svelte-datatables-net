@@ -6,7 +6,7 @@
 		Pagination,
 		RowsPerPage,
 		Search,
-		Sort
+		Sort,
 	} from '$lib/index';
 
 	type typeData = {
@@ -35,7 +35,7 @@
 			parRowsPerPage: '10',
 			parSortBy: 'id',
 			parSearchString: '',
-			parSortOrder: 'ascending'
+			parSortOrder: 'ascending',
 		});
 	};
 </script>

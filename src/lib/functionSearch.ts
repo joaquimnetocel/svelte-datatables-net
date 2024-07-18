@@ -1,13 +1,13 @@
 export const functionSearch = function <Generic>(
 	parData: Generic[],
 	parSearchString: string,
-	parSearchableColumns?: (keyof Generic)[]
+	parSearchableColumns?: (keyof Generic)[],
 ) {
 	const arraySearchable = parData.map((currentData) => {
 		if (parSearchableColumns === undefined) {
 			return {
 				objectData: currentData,
-				stringSearchable: ''
+				stringSearchable: '',
 			};
 		}
 		const arraySearchablesBeforeJoin = parSearchableColumns.map((current) => {
@@ -15,12 +15,12 @@ export const functionSearch = function <Generic>(
 		});
 		return {
 			objectData: currentData,
-			stringSearchable: arraySearchablesBeforeJoin.join(' ').toLowerCase()
+			stringSearchable: arraySearchablesBeforeJoin.join(' ').toLowerCase(),
 		};
 	});
 
 	const arrayFilteredSearchable = arraySearchable.filter((current) =>
-		current.stringSearchable.includes(parSearchString.toLocaleLowerCase())
+		current.stringSearchable.includes(parSearchString.toLocaleLowerCase()),
 	);
 	return arrayFilteredSearchable.map((current) => current.objectData);
 };

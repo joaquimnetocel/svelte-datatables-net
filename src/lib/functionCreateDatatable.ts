@@ -18,7 +18,7 @@ export const functionCreateDatatable = function <Generic>({
 	parRowsPerPage = 'all',
 	parSortBy,
 	parSortOrder = 'ascending',
-	parSortFunction
+	parSortFunction,
 }: typeParameters<Generic>): typeDatatable<Generic> {
 	if (parSortFunction === undefined) {
 		const sortModifier = parSortOrder === 'ascending' ? 1 : -1;
@@ -56,6 +56,6 @@ export const functionCreateDatatable = function <Generic>({
 		stringSearchString: parSearchString,
 		arraySearchableColumns: parSearchableColumns,
 		stringSortOrder: parSortOrder,
-		functionSort: parSortFunction
+		functionSort: parSortFunction,
 	};
 };

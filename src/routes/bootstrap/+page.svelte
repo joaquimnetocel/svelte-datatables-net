@@ -17,7 +17,7 @@
 		{ id: 8, name: 'Paul', age: 33, city: 'Las Vegas' },
 		{ id: 11, name: 'Fred', age: 25, city: 'Boston' },
 		{ id: 15, name: 'Richard', age: 29, city: 'Boston' },
-		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' }
+		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' },
 	];
 
 	let objectDatatable = functionCreateDatatable({
@@ -26,7 +26,7 @@
 		parRowsPerPage: '5',
 		parSortBy: 'city',
 		parSearchString: '',
-		parSortOrder: 'ascending'
+		parSortOrder: 'ascending',
 	});
 </script>
 
