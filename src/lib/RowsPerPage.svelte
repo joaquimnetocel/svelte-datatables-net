@@ -1,33 +1,36 @@
 <svelte:options runes={true} />
 
-<script lang="ts">
+<script lang="ts" generics="Generic">
 	import type { Snippet } from 'svelte';
+	import { getContext } from 'svelte';
+	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
-	type typeData = $$Generic;
+	// eslint-disable-next-line no-undef
+	type typeData = Generic;
+
+	let stateDatatable = getContext<typeDatatable<typeData>>(symbolContext);
 
 	let {
-		propDatatable = $bindable(),
 		children,
 		...propRest
 	}: {
-		propDatatable: typeDatatable<typeData>;
 		class?: string;
 		style?: string;
 		children: Snippet;
 	} = $props();
 
 	const functionChange = function () {
-		propDatatable.numberRowsPerPage =
-			propDatatable.stringRowsPerPage === 'all'
+		stateDatatable.numberRowsPerPage =
+			stateDatatable.stringRowsPerPage === 'all'
 				? Infinity
-				: parseInt(propDatatable.stringRowsPerPage);
-		propDatatable.numberActivePage = 1;
+				: parseInt(stateDatatable.stringRowsPerPage);
+		stateDatatable.numberActivePage = 1;
 	};
 </script>
 
 <select
-	bind:value={propDatatable.stringRowsPerPage}
+	bind:value={stateDatatable.stringRowsPerPage}
 	onchange={functionChange}
 	style={propRest.style}
 	class={propRest.class}

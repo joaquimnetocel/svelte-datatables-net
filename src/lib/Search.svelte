@@ -1,12 +1,12 @@
 <svelte:options runes={true} />
 
-<script lang="ts" generics="T">
+<script lang="ts" generics="Generic">
 	import { getContext } from 'svelte';
 	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
 	// eslint-disable-next-line no-undef
-	type typeData = T;
+	type typeData = Generic;
 
 	let stateDatatable = getContext<typeDatatable<typeData>>(symbolContext);
 

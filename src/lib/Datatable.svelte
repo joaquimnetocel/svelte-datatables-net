@@ -1,11 +1,11 @@
-<script lang="ts" generics="T">
+<script lang="ts" generics="Generic">
 	import { setContext, type Snippet } from 'svelte';
 	import { functionSearch } from './functionSearch.js';
 	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
 	// eslint-disable-next-line no-undef
-	type typeData = T;
+	type typeData = Generic;
 
 	let {
 		children,

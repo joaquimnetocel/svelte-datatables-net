@@ -1,12 +1,44 @@
-<script lang="ts">
+<script lang="ts" generics="Generic">
 	import type { Snippet } from 'svelte';
+	import { getContext } from 'svelte';
+	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
-	type typeData = $$Generic;
+	// eslint-disable-next-line no-undef
+	type typeData = Generic;
 	type typeSortFunction = (a: typeData, b: typeData) => number;
 
-	function functionA(elementA: typeData, elementB: typeData) {
-		const sortModifier = propDatatable.stringSortOrder === 'ascending' ? 1 : -1;
+	let stateDatatable = getContext<typeDatatable<typeData>>(symbolContext);
+
+	let {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		propDatatable, // NOT USED. JUST TO PROVIDE TYPING TO propColumn
+		propColumn,
+		propIconSize = 10,
+		propSortFunction = functionDefaultSortFunction,
+		children,
+	}: {
+		propDatatable: typeDatatable<typeData>;
+		propColumn: keyof typeData;
+		propIconSize?: number;
+		propSortFunction?: typeSortFunction;
+		children: Snippet;
+	} = $props();
+	/////
+	// FUNCTIONS
+	function functionUpdateSortConfig() {
+		if (stateDatatable.stringSortBy === propColumn) {
+			stateDatatable.stringSortOrder =
+				stateDatatable.stringSortOrder === 'ascending' ? 'descending' : 'ascending';
+			stateDatatable.functionSort = propSortFunction;
+			return;
+		}
+		stateDatatable.stringSortBy = propColumn;
+		stateDatatable.stringSortOrder = 'ascending';
+		stateDatatable.functionSort = propSortFunction;
+	}
+	function functionDefaultSortFunction(elementA: typeData, elementB: typeData) {
+		const sortModifier = stateDatatable.stringSortOrder === 'ascending' ? 1 : -1;
 		if (elementA[propColumn] < elementB[propColumn]) {
 			return -1 * sortModifier;
 		}
@@ -15,32 +47,6 @@
 		}
 		return 0;
 	}
-
-	let {
-		propColumn,
-		propDatatable = $bindable(),
-		propIconSize = 10,
-		propSortFunction = functionA,
-		children,
-	}: {
-		propColumn: keyof typeData;
-		propDatatable: typeDatatable<typeData>;
-		propIconSize?: number;
-		propSortFunction?: typeSortFunction;
-		children: Snippet;
-	} = $props();
-	/////
-	// FUNCTIONS
-	const functionUpdateSortConfig = function () {
-		if (propDatatable.stringSortBy === propColumn) {
-			propDatatable.stringSortOrder =
-				propDatatable.stringSortOrder === 'ascending' ? 'descending' : 'ascending';
-			return;
-		}
-		propDatatable.stringSortBy = propColumn;
-		propDatatable.stringSortOrder = 'ascending';
-		propDatatable.functionSort = propSortFunction;
-	};
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -51,8 +57,8 @@
 	onclick={functionUpdateSortConfig}
 >
 	{@render children()}
-	{#if propDatatable.stringSortBy === propColumn}
-		{#if propDatatable.stringSortOrder === 'ascending'}
+	{#if stateDatatable.stringSortBy === propColumn}
+		{#if stateDatatable.stringSortOrder === 'ascending'}
 			<!-- <i class="fa-solid fa-caret-down" /> -->
 			<svg width={propIconSize} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
 				<path

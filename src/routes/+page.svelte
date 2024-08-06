@@ -39,7 +39,7 @@
 	</p>
 
 	<p>
-		<RowsPerPage bind:propDatatable={stateDatatable}>
+		<RowsPerPage>
 			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="20">20</option>
@@ -56,10 +56,10 @@
 		<thead>
 			<tr>
 				<th>
-					<Sort bind:propDatatable={stateDatatable} propColumn={'id'}>ID (click here)</Sort>
+					<Sort propDatatable={stateDatatable} propColumn={'id'}>ID (click here)</Sort>
 				</th>
 				<th>
-					<Sort bind:propDatatable={stateDatatable} propColumn={'name'}>NAME (click here)</Sort>
+					<Sort propDatatable={stateDatatable} propColumn={'name'}>NAME (click here)</Sort>
 				</th>
 				<th>AGE</th>
 				<th>CITY</th>
