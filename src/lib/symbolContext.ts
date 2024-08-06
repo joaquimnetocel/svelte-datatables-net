@@ -1,0 +1,1 @@
+export const symbolContext = Symbol();
