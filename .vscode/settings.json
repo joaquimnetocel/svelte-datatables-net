@@ -14,6 +14,27 @@
 	"svelte.enable-ts-plugin": true, // 'SVELTE FOR VS CODE' TYPESCRIPT PLUGIN WHICH PROVIDES INTELLISENSE FOR SVELTE FILES INSIDE TS/JS FILES.
 	"files.associations": {
 		"*.json": "jsonc" // ENABLE COMMENTS IN JSON FILES.
-	}
+	},
+	/////
+	// EXPLORER SIDEBAR:
+	"explorer.sortOrder": "filesFirst", // FILES DISPLAYED BEFORE FOLDERS.
+	"explorer.confirmDelete": false, // WON'T ASK FOR CONFIRMATION WHEN DELETING A FILE VIA THE TRASH.
+	"explorer.compactFolders": false, // SINGLE CHILD FOLDERS WON'T BE COMPRESSED IN A COMBINED TREE ELEMENT.
+	"workbench.tree.indent": 18, // TREE INDENTATION IN PIXELS.
+	/////
+	// TAB:
+	"editor.insertSpaces": false, // VSCODE WON'T INSERT SPACES WHEN PRESSING 'TAB'.
+	"editor.tabSize": 4, // THE NUMBER OF SPACES A TAB IS EQUAL TO.
+	"editor.detectIndentation": false, // DISABLE 'editor.tabSize' AND 'editor.insertSpaces' AUTOMATIC DETECTION BASED ON THE FILE CONTENTS.
+	/////
+	// GIT:
+	"git.autofetch": true, // COMMITS WILL AUTOMATICALLY BE FETCHED FROM THE DEFAULT REMOTE OF THE CURRENT GIT REPOSITORY.
+	"git.enableSmartCommit": true, // COMMIT ALL CHANGES WHEN THERE ARE NO STAGED CHANGES.
+	/////
+	// STARTUP:
+	"workbench.startupEditor": "none", // START WITHOUT AN EDITOR IF NONE ARE RESTORED FROM THE PREVIOUS SESSION.
+	/////
+	// WINDOW:
+	"window.title": "${rootName}" // VSCODE WINDOW TITLE.
 	/////
 }

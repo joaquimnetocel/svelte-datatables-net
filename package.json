@@ -1,6 +1,26 @@
 {
 	"name": "svelte-datatables-net",
-	"version": "0.0.1",
+	"version": "1.0.0",
+	"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/joaquimnetocel/svelte-datatables-net.git"
+	},
+	"bugs": {
+		"url": "https://github.com/joaquimnetocel/svelte-datatables-net/issues"
+	},
+	"keywords": [
+		"datatable",
+		"table",
+		"searchable table",
+		"sortable table",
+		"datatables.net",
+		"svelte",
+		"sveltekit",
+		"svelte4"
+	],
+	"author": "Joaquim Neto <joaquim.neto.cel@gmail.com>",
+	"license": "ISC",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -24,7 +44,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.1"
+		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",

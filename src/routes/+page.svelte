@@ -56,10 +56,16 @@
 		<thead>
 			<tr>
 				<th>
-					<Sort propDatatable={stateDatatable} propColumn={'id'}>ID (click here)</Sort>
+					<Sort
+						propDatatable={stateDatatable}
+						propColumn={'id'}>ID (click here)</Sort
+					>
 				</th>
 				<th>
-					<Sort propDatatable={stateDatatable} propColumn={'name'}>NAME (click here)</Sort>
+					<Sort
+						propDatatable={stateDatatable}
+						propColumn={'name'}>NAME (click here)</Sort
+					>
 				</th>
 				<th>AGE</th>
 				<th>CITY</th>

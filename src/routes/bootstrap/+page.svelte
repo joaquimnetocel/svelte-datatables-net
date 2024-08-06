@@ -49,7 +49,10 @@
 				<div class="col-12 col-md-6 text-md-start text-center mb-1 mb-md-0">
 					<div class="d-md-flex align-items-md-center">
 						<span class="me-1">Search:</span>
-						<Search propPlaceholder="Type here..." class="form-control form-control-sm" />
+						<Search
+							propPlaceholder="Type here..."
+							class="form-control form-control-sm"
+						/>
 					</div>
 				</div>
 				<div class="col-12 col-md-6 text-md-end text-center">
@@ -72,10 +75,16 @@
 					<thead>
 						<tr>
 							<th>
-								<Sort propDatatable={objectDatatable} propColumn={'id'}>ID</Sort>
+								<Sort
+									propDatatable={objectDatatable}
+									propColumn={'id'}>ID</Sort
+								>
 							</th>
 							<th>
-								<Sort propDatatable={objectDatatable} propColumn={'name'}>NAME</Sort>
+								<Sort
+									propDatatable={objectDatatable}
+									propColumn={'name'}>NAME</Sort
+								>
 							</th>
 							<th>AGE</th>
 							<th>CITY</th>

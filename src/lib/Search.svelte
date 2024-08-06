@@ -1,6 +1,9 @@
 <svelte:options runes={true} />
 
-<script lang="ts" generics="Generic">
+<script
+	lang="ts"
+	generics="Generic"
+>
 	import { getContext } from 'svelte';
 	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';

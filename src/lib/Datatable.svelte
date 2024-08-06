@@ -1,4 +1,7 @@
-<script lang="ts" generics="Generic">
+<script
+	lang="ts"
+	generics="Generic"
+>
 	import { setContext, type Snippet } from 'svelte';
 	import { functionSearch } from './functionSearch.js';
 	import { symbolContext } from './symbolContext.js';
