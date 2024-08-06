@@ -39,16 +39,10 @@
 		<thead>
 			<tr>
 				<th>
-					<Sort
-						propDatatable={objectDatatable}
-						propColumn={'id'}>ID (click here)</Sort
-					>
+					<Sort propDatatable={objectDatatable} propColumn={'id'}>ID (click here)</Sort>
 				</th>
 				<th>
-					<Sort
-						propDatatable={objectDatatable}
-						propColumn={'brand'}>BRAND (click here)</Sort
-					>
+					<Sort propDatatable={objectDatatable} propColumn={'brand'}>BRAND (click here)</Sort>
 				</th>
 				<th>CATEGORY</th>
 				<th>DESCRIPTION</th>

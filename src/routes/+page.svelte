@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Datatable, functionCreateDatatable, RowsPerPage, Search, Sort } from '$lib/index.js';
+	import {
+		Datatable,
+		functionCreateDatatable,
+		Pagination,
+		RowsPerPage,
+		Search,
+		Sort,
+	} from '$lib/index.js';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -49,23 +56,21 @@
 		<span>RESULTS PER PAGE</span>
 	</p>
 	<p>
-		<!--<Pagination bind:propDatatable={stateDatatable} propSize="small" />-->
+		<Pagination
+			propTag="button"
+			propDisabledStyle="background: darkgrey;"
+			propActiveStyle="background: blue;color:white;"
+		/>
 	</p>
 
 	<table>
 		<thead>
 			<tr>
 				<th>
-					<Sort
-						propDatatable={stateDatatable}
-						propColumn={'id'}>ID (click here)</Sort
-					>
+					<Sort propDatatable={stateDatatable} propColumn={'id'}>ID (click here)</Sort>
 				</th>
 				<th>
-					<Sort
-						propDatatable={stateDatatable}
-						propColumn={'name'}>NAME (click here)</Sort
-					>
+					<Sort propDatatable={stateDatatable} propColumn={'name'}>NAME (click here)</Sort>
 				</th>
 				<th>AGE</th>
 				<th>CITY</th>
