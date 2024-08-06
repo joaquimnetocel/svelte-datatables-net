@@ -6,6 +6,11 @@
 
 ![BOOTSTRAP EXAMPLE](./demonstration.gif)
 
+## VERSIONS
+
+- VERSION 1.0.0 OR ABOVE WORKS WITH SVELTE 5 ONLY (NEWER AND RECOMMENDED VERSIONS WITH IMPROVEMENTS!)
+- PREVIOUS VERSIONS WORKS WITH SVELTE 3, 4 AND 5.
+
 ## FEATURES
 
 - POSSIBILITY OF CHOOSING THE SEARCHABLE COLUMNS.
@@ -31,7 +36,7 @@ npm install svelte-datatables-net
 ## COMPONENT STRUCTURE
 
 - `functionCreateDatatable`: A function to create an object with all the states of the component.
-- `Engine`: This is a hidden component (it won't display anything on the screen). However, it is critical for the other components to work together. You must always use it!
+- `Datatable`: Datatable element surrounding your table structure.
 - `Search`: A svelte component with a search input.
 - `RowsPerPage`: A svelte component with a select input to choose the number of rows per page.
 - `Pagination`: A svelte component to change the active page.
@@ -52,7 +57,7 @@ npm install svelte-datatables-net
 | parSortOrder           | THE INITIAL SORT ORDER                                                                                                                                                       | 'ascending' OR 'descending'          | NO       | 'ascending'                                 |
 | `parSortFunction`      | A COMPARE FUNCTION THAT SPECIFIES THE INITIAL SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | (a: Generic, b: Generic) => number   | NO       | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
 
-- PROPS OF `Engine`:
+- PROPS OF `Datatable`:
 
 | PROP            | DESCRIPTION                                                                         | TYPE                     | REQUIRED | DEFAULT |
 | --------------- | ----------------------------------------------------------------------------------- | ------------------------ | -------- | ------- |
@@ -176,123 +181,13 @@ npm install svelte-datatables-net
 </Datatable>
 ```
 
-- FETCH EXAMPLE (WITH TYPESCRIPT)
-
-```svelte
-<script lang="ts">
-	import type { typeDatatable } from 'svelte-datatables-net';
-	import {
-		Engine,
-		functionCreateDatatable,
-		Pagination,
-		RowsPerPage,
-		Search,
-		Sort,
-	} from 'svelte-datatables-net';
-
-	type typeData = {
-		brand: string;
-		category: string;
-		description: string;
-		discountPercentage: number;
-		id: number;
-		images: string[];
-		price: number;
-		rationg: number;
-		stock: number;
-		thumbnail: string;
-		title: string;
-	};
-
-	let objectDatatable: typeDatatable<typeData>;
-
-	const functionReadData = async function () {
-		const responseData = await fetch('https://dummyjson.com/products');
-		const jsonData = await responseData.json();
-		const arrayData = jsonData.products as typeData[];
-		objectDatatable = functionCreateDatatable({
-			parData: arrayData,
-			parSearchableColumns: ['id', 'brand', 'category', 'description'],
-			parRowsPerPage: '10',
-			parSearchString: '',
-			parSortBy: 'id',
-			parSortOrder: 'ascending',
-		});
-	};
-</script>
-
-{#await functionReadData()}
-	READING DATA...
-{:then}
-	<Engine bind:propDatatable={objectDatatable} />
-
-	<p>
-		<span>Search:</span>
-		<Search
-			bind:propDatatable={objectDatatable}
-			propPlaceholder="Type here..."
-		/>
-	</p>
-	<p>
-		<RowsPerPage bind:propDatatable={objectDatatable}>
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="20">20</option>
-			<option value="30">30</option>
-			<option value="all">ALL</option>
-		</RowsPerPage>
-		<span>RESULTS PER PAGE</span>
-	</p>
-	<p>
-		<Pagination
-			bind:propDatatable={objectDatatable}
-			propSize="small"
-		/>
-	</p>
-
-	<table>
-		<thead>
-			<tr>
-				<th>
-					<Sort
-						bind:propDatatable={objectDatatable}
-						propColumn={'id'}>ID (click here)</Sort
-					>
-				</th>
-				<th>
-					<Sort
-						bind:propDatatable={objectDatatable}
-						propColumn={'brand'}>BRAND (click here)</Sort
-					>
-				</th>
-				<th>CATEGORY</th>
-				<th>DESCRIPTION</th>
-				<th>STOCK</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each objectDatatable.arrayData as row}
-				<tr>
-					<td>{row.id}</td>
-					<td>{row.brand}</td>
-					<td>{row.category}</td>
-					<td>{row.description}</td>
-					<td>{row.stock}</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
-{/await}
-```
-
 - BOOTSTRAP 5 EXAMPLE:
 
 ```svelte
 <script lang="ts">
 	import {
-		Engine,
+		Datatable,
 		functionCreateDatatable,
-		Pagination,
 		RowsPerPage,
 		Search,
 		Sort,
@@ -317,14 +212,16 @@ npm install svelte-datatables-net
 		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' },
 	];
 
-	let objectDatatable = functionCreateDatatable({
-		parData: arrayUsers,
-		parSearchableColumns: ['name', 'city'],
-		parRowsPerPage: '5',
-		parSearchString: '',
-		parSortBy: 'city',
-		parSortOrder: 'ascending',
-	});
+	let objectDatatable = $state(
+		functionCreateDatatable({
+			parData: arrayUsers,
+			parSearchableColumns: ['name', 'city'],
+			parRowsPerPage: '5',
+			parSortBy: 'city',
+			parSearchString: '',
+			parSortOrder: 'ascending',
+		}),
+	);
 </script>
 
 <svelte:head>
@@ -336,83 +233,76 @@ npm install svelte-datatables-net
 	/>
 </svelte:head>
 
-<Engine bind:propDatatable={objectDatatable} />
-
-<div class="container-sm">
-	<div class="mx-3">
-		<!-- SEARCH & RESULTS PER PAGE -->
-		<div class="row align-items-center mb-2">
-			<div class="col-12 col-md-6 text-md-start text-center mb-1 mb-md-0">
-				<div class="d-md-flex align-items-md-center">
-					<span class="me-1">Search:</span>
-					<Search
-						bind:propDatatable={objectDatatable}
-						propPlaceholder="Type here..."
-						class="form-control form-control-sm"
-					/>
+<Datatable bind:propDatatable={objectDatatable}>
+	<div class="container-sm">
+		<div class="mx-3">
+			<!-- SEARCH & RESULTS PER PAGE -->
+			<div class="row align-items-center mb-2">
+				<div class="col-12 col-md-6 text-md-start text-center mb-1 mb-md-0">
+					<div class="d-md-flex align-items-md-center">
+						<span class="me-1">Search:</span>
+						<Search
+							propPlaceholder="Type here..."
+							class="form-control form-control-sm"
+						/>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 text-md-end text-center">
+					<RowsPerPage class="d-inline form-select form-select-sm w-auto">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="all">ALL</option>
+					</RowsPerPage>
+					<span>RESULTS PER PAGE</span>
 				</div>
 			</div>
-			<div class="col-12 col-md-6 text-md-end text-center">
-				<RowsPerPage
-					bind:propDatatable={objectDatatable}
-					class="d-inline form-select form-select-sm w-auto"
-				>
-					<option value="5">5</option>
-					<option value="10">10</option>
-					<option value="20">20</option>
-					<option value="30">30</option>
-					<option value="all">ALL</option>
-				</RowsPerPage>
-				<span>RESULTS PER PAGE</span>
-			</div>
-		</div>
-		<!---->
-		{#if objectDatatable.arraySearched.length === 0}
-			<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
-		{:else}
-			<!-- TABLE -->
-			<table class="table table-striped table-sm mt-2">
-				<thead>
-					<tr>
-						<th>
-							<Sort
-								bind:propDatatable={objectDatatable}
-								propColumn={'id'}>ID</Sort
-							>
-						</th>
-						<th>
-							<Sort
-								bind:propDatatable={objectDatatable}
-								propColumn={'name'}>NAME</Sort
-							>
-						</th>
-						<th>AGE</th>
-						<th>CITY</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each objectDatatable.arrayData as row}
+			<!---->
+			{#if objectDatatable.arraySearched.length === 0}
+				<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
+			{:else}
+				<!-- TABLE -->
+				<table class="table table-striped table-sm mt-2">
+					<thead>
 						<tr>
-							<td>{row.id}</td>
-							<td>{row.name}</td>
-							<td>{row.age}</td>
-							<td>{row.city}</td>
+							<th>
+								<Sort
+									propDatatable={objectDatatable}
+									propColumn={'id'}>ID</Sort
+								>
+							</th>
+							<th>
+								<Sort
+									propDatatable={objectDatatable}
+									propColumn={'name'}>NAME</Sort
+								>
+							</th>
+							<th>AGE</th>
+							<th>CITY</th>
 						</tr>
-					{/each}
-				</tbody>
-			</table>
-			<!---->
-			<!-- PAGINATION -->
-			<div class="d-flex justify-content-center justify-content-md-end mb-5">
-				<Pagination
-					bind:propDatatable={objectDatatable}
-					propSize="default"
-				/>
-			</div>
-			<!---->
-		{/if}
+					</thead>
+					<tbody>
+						{#each objectDatatable.arrayData as row}
+							<tr>
+								<td>{row.id}</td>
+								<td>{row.name}</td>
+								<td>{row.age}</td>
+								<td>{row.city}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+				<!---->
+				<!-- PAGINATION -->
+				<div class="d-flex justify-content-center justify-content-md-end mb-5">
+					<!-- <Pagination bind:propDatatable={objectDatatable} propSize="default" /> -->
+				</div>
+				<!---->
+			{/if}
+		</div>
 	</div>
-</div>
+</Datatable>
 ```
 
 ## DEVELOPING
