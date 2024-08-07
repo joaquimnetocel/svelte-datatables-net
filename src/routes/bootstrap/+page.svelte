@@ -1,5 +1,13 @@
 <script lang="ts">
-	import { Datatable, functionCreateDatatable, RowsPerPage, Search, Sort } from '$lib/index.js';
+	import {
+		Datatable,
+		functionCreateDatatable,
+		Pagination,
+		RowsPerPage,
+		Search,
+		Sort,
+	} from '$lib/index.js';
+	import PaginationItem from './PaginationItem.svelte';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -95,7 +103,17 @@
 				<!---->
 				<!-- PAGINATION -->
 				<div class="d-flex justify-content-center justify-content-md-end mb-5">
-					<!-- <Pagination bind:propDatatable={objectDatatable} propSize="default" /> -->
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<Pagination
+								propTag="li"
+								class="page-item"
+								PropComponent={PaginationItem}
+								propDisabledClass="disabled"
+								propActiveClass="active"
+							/>
+						</ul>
+					</nav>
 				</div>
 				<!---->
 			{/if}

@@ -1,5 +1,5 @@
 <script lang="ts" generics="Generic">
-	import { getContext } from 'svelte';
+	import { getContext, type Component } from 'svelte';
 	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
@@ -14,6 +14,7 @@
 	);
 
 	let {
+		PropComponent,
 		propTag,
 		propPrevious = 'PREVIOUS',
 		propNext = 'NEXT',
@@ -23,6 +24,7 @@
 		propActiveClass,
 		...propRest
 	}: {
+		PropComponent?: Component;
 		propTag: 'span' | 'div' | 'li' | 'button' | 'a';
 		propDisabledStyle?: string;
 		propDisabledClass?: string;
@@ -39,22 +41,34 @@
 {#if stateDatatable.numberActivePage === 1}
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style};${propDisabledStyle};cursor:not-allowed;`}
-		class={`${propRest.class} ${propDisabledClass}`}
+		style={`${propRest.style ?? ''};${propDisabledStyle ?? ''};cursor:not-allowed;`}
+		class={`${propRest.class ?? ''} ${propDisabledClass ?? ''}`}
 	>
-		{propPrevious}
+		{#if PropComponent}
+			<PropComponent>
+				{propPrevious}
+			</PropComponent>
+		{:else}
+			{propPrevious}
+		{/if}
 	</svelte:element>
 {:else}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style};cursor:pointer`}
+		style={`${propRest.style ?? ''};cursor:pointer`}
 		onclick={() => {
 			stateDatatable.numberActivePage = stateDatatable.numberActivePage - 1;
 		}}
-		class={`${propRest.class}`}
+		class={`${propRest.class ?? ''}`}
 	>
-		{propPrevious}
+		{#if PropComponent}
+			<PropComponent>
+				{propPrevious}
+			</PropComponent>
+		{:else}
+			{propPrevious}
+		{/if}
 	</svelte:element>
 {/if}
 <!---->
@@ -62,35 +76,53 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style};${stateDatatable.numberActivePage === numberCounter + 1 ? propActiveStyle : ''};${stateDatatable.numberActivePage === numberCounter + 1 ? 'cursor:default;' : 'cursor:pointer;'}`}
-		class={`${propRest.class} ${stateDatatable.numberActivePage === numberCounter + 1 ? propActiveClass : ''}`}
+		style={`${propRest.style ?? ''};${stateDatatable.numberActivePage === numberCounter + 1 ? (propActiveStyle ?? '') : ''};${stateDatatable.numberActivePage === numberCounter + 1 ? 'cursor:default;' : 'cursor:pointer;'}`}
+		class={`${propRest.class ?? ''} ${stateDatatable.numberActivePage === numberCounter + 1 ? (propActiveClass ?? '') : ''}`}
 		onclick={() => {
 			stateDatatable.numberActivePage = numberCounter + 1;
 		}}
 	>
-		{numberCounter + 1}
+		{#if PropComponent}
+			<PropComponent>
+				{numberCounter + 1}
+			</PropComponent>
+		{:else}
+			{numberCounter + 1}
+		{/if}
 	</svelte:element>
 {/each}
 <!-- NEXT -->
 {#if stateDatatable.numberActivePage === derivedNumberOfPages}
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style};${propDisabledStyle};cursor:not-allowed;`}
-		class={`${propRest.class} ${propDisabledClass}`}
+		style={`${propRest.style ?? ''};${propDisabledStyle ?? ''};cursor:not-allowed;`}
+		class={`${propRest.class ?? ''} ${propDisabledClass ?? ''}`}
 	>
-		{propNext}
+		{#if PropComponent}
+			<PropComponent>
+				{propNext}
+			</PropComponent>
+		{:else}
+			{propNext}
+		{/if}
 	</svelte:element>
 {:else}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style};cursor:pointer`}
-		class={`${propRest.class}`}
+		style={`${propRest.style ?? ''};cursor:pointer`}
+		class={`${propRest.class ?? ''}`}
 		onclick={() => {
 			stateDatatable.numberActivePage = stateDatatable.numberActivePage + 1;
 		}}
 	>
-		{propNext}
+		{#if PropComponent}
+			<PropComponent>
+				{propNext}
+			</PropComponent>
+		{:else}
+			{propNext}
+		{/if}
 	</svelte:element>
 {/if}
 <!---->
