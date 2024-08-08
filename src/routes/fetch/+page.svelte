@@ -2,7 +2,7 @@
 	import {
 		Datatable,
 		functionCreateDatatable,
-		Pagination,
+		PaginationItems,
 		RowsPerPage,
 		Search,
 		Sort,
@@ -39,7 +39,7 @@
 		<span>RESULTS PER PAGE</span>
 	</p>
 	<p>
-		<Pagination
+		<PaginationItems
 			propTag="button"
 			propDisabledStyle="background: darkgrey;"
 			propActiveStyle="background: blue;color:white;"

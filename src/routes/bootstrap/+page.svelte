@@ -2,12 +2,11 @@
 	import {
 		Datatable,
 		functionCreateDatatable,
-		Pagination,
+		PaginationItems,
 		RowsPerPage,
 		Search,
 		Sort,
 	} from '$lib/index.js';
-	import PaginationItem from './PaginationItem.svelte';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -76,10 +75,10 @@
 			<div class="d-flex justify-content-center justify-content-md-end">
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">
-						<Pagination
+						<PaginationItems
 							propTag="li"
 							class="page-item"
-							PropComponent={PaginationItem}
+							propInnerClass="page-link"
 							propDisabledClass="disabled"
 							propActiveClass="active"
 						/>

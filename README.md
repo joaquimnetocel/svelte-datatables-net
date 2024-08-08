@@ -71,11 +71,12 @@ npm install svelte-datatables-net
 | `class`           | CSS CLASSES OF THE SEARCH INPUT. | `string` | NO       | -              |
 | `style`           | CSS STYLES OF THE SEARCH INPUT.  | `string` | NO       | -              |
 
-- PROPS OF `Pagination`:
+- PROPS OF `PaginationItems`:
 
 | PROP                | DESCRIPTION                                           | TYPE                                         | REQUIRED | DEFAULT |
 | ------------------- | ----------------------------------------------------- | -------------------------------------------- | -------- | ------- |
 | `propTag`           | HTML TAG OF THE PAGINATION ITEM.                      | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | YES      | -       |
+| `propInnerTag`      | HTML TAG INSIDE THE PAGINATION ITEM.                  | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | NO       | `span`  |
 | `propPrevious`      | PREVIOUS BUTTON TEXT.                                 | `string`                                     | NO       | -       |
 | `propNext`          | NEXT BUTTON TEXT.                                     | `string`                                     | NO       | -       |
 | `propComponent`     | OPTIONAL COMPONENT TO USE INSIDE THE PAGINATION ITEM. | `string`                                     | NO       | -       |
@@ -85,6 +86,8 @@ npm install svelte-datatables-net
 | `propDisabledClass` | CSS CLASSES FOR DISABLED PAGINATION ITEMS.            | `string`                                     | NO       | -       |
 | `propActiveStyle`   | CSS STYLES FOR ACTIVE PAGINATION ITEMS.               | `string`                                     | NO       | -       |
 | `propActiveClass`   | CSS CLASSES FOR ACTIVE PAGINATION ITEMS.              | `string`                                     | NO       | -       |
+| `propInnerClass`    | CSS CLASSES FOR THE TAG INSIDE PAGINATION ITEMS.      | `string`                                     | NO       | -       |
+| `propInnerStyle`    | CSS CLASSES FOR THE TAG INSIDE PAGINATION ITEMS.      | `string`                                     | NO       | -       |
 
 - PROPS OF `RowsPerPage`:
 

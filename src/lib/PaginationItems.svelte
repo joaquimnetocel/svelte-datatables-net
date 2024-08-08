@@ -1,5 +1,5 @@
 <script lang="ts" generics="Generic">
-	import { getContext, type Component } from 'svelte';
+	import { getContext } from 'svelte';
 	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
@@ -14,22 +14,26 @@
 	);
 
 	let {
-		PropComponent,
 		propTag,
+		propInnerTag = 'span',
 		propPrevious = 'PREVIOUS',
 		propNext = 'NEXT',
 		propDisabledStyle = '',
 		propDisabledClass = '',
 		propActiveStyle = '',
 		propActiveClass = '',
+		propInnerStyle = '',
+		propInnerClass = '',
 		...propRest
 	}: {
-		PropComponent?: Component;
 		propTag: 'span' | 'div' | 'li' | 'button' | 'a';
+		propInnerTag?: 'span' | 'div' | 'li' | 'button' | 'a';
 		propDisabledStyle?: string;
 		propDisabledClass?: string;
 		propActiveStyle?: string;
 		propActiveClass?: string;
+		propInnerStyle?: string;
+		propInnerClass?: string;
 		propPrevious?: string;
 		propNext?: string;
 		style?: string;
@@ -44,10 +48,10 @@
 		style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
 		class={`${propRest.class ?? ''} ${propDisabledClass}`}
 	>
-		{#if PropComponent}
-			<PropComponent>
+		{#if propInnerTag}
+			<svelte:element this={propInnerTag} style={propInnerStyle} class={propInnerClass}>
 				{propPrevious}
-			</PropComponent>
+			</svelte:element>
 		{:else}
 			{propPrevious}
 		{/if}
@@ -62,10 +66,10 @@
 		}}
 		class={`${propRest.class ?? ''}`}
 	>
-		{#if PropComponent}
-			<PropComponent>
+		{#if propInnerTag}
+			<svelte:element this={propInnerTag} style={propInnerStyle} class={propInnerClass}>
 				{propPrevious}
-			</PropComponent>
+			</svelte:element>
 		{:else}
 			{propPrevious}
 		{/if}
@@ -82,10 +86,10 @@
 			stateDatatable.numberActivePage = numberCounter + 1;
 		}}
 	>
-		{#if PropComponent}
-			<PropComponent>
+		{#if propInnerTag}
+			<svelte:element this={propInnerTag} style={propInnerStyle} class={propInnerClass}>
 				{numberCounter + 1}
-			</PropComponent>
+			</svelte:element>
 		{:else}
 			{numberCounter + 1}
 		{/if}
@@ -98,10 +102,10 @@
 		style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
 		class={`${propRest.class ?? ''} ${propDisabledClass}`}
 	>
-		{#if PropComponent}
-			<PropComponent>
+		{#if propInnerTag}
+			<svelte:element this={propInnerTag} style={propInnerStyle} class={propInnerClass}>
 				{propNext}
-			</PropComponent>
+			</svelte:element>
 		{:else}
 			{propNext}
 		{/if}
@@ -116,10 +120,10 @@
 			stateDatatable.numberActivePage = stateDatatable.numberActivePage + 1;
 		}}
 	>
-		{#if PropComponent}
-			<PropComponent>
+		{#if propInnerTag}
+			<svelte:element this={propInnerTag} style={propInnerStyle} class={propInnerClass}>
 				{propNext}
-			</PropComponent>
+			</svelte:element>
 		{:else}
 			{propNext}
 		{/if}
