@@ -15,8 +15,8 @@
 		...propRest
 	}: {
 		propPlaceholder: string;
-		style?: string;
 		class?: string;
+		style?: string;
 	} = $props();
 </script>
 
@@ -25,6 +25,5 @@
 	oninput={() => (stateDatatable.numberActivePage = 1)}
 	type="search"
 	placeholder={propPlaceholder}
-	style={propRest.style}
-	class={propRest.class}
+	{...propRest}
 />

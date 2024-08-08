@@ -72,11 +72,26 @@
 				</div>
 			</div>
 			<!---->
+			<!-- PAGINATION -->
+			<div class="d-flex justify-content-center justify-content-md-end">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<Pagination
+							propTag="li"
+							class="page-item"
+							PropComponent={PaginationItem}
+							propDisabledClass="disabled"
+							propActiveClass="active"
+						/>
+					</ul>
+				</nav>
+			</div>
+			<!---->
 			{#if objectDatatable.arraySearched.length === 0}
 				<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
 			{:else}
 				<!-- TABLE -->
-				<table class="table table-striped table-sm mt-2">
+				<table class="table table-striped table-sm">
 					<thead>
 						<tr>
 							<th>
@@ -100,21 +115,6 @@
 						{/each}
 					</tbody>
 				</table>
-				<!---->
-				<!-- PAGINATION -->
-				<div class="d-flex justify-content-center justify-content-md-end mb-5">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-							<Pagination
-								propTag="li"
-								class="page-item"
-								PropComponent={PaginationItem}
-								propDisabledClass="disabled"
-								propActiveClass="active"
-							/>
-						</ul>
-					</nav>
-				</div>
 				<!---->
 			{/if}
 		</div>

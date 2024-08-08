@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Datatable, functionCreateDatatable, RowsPerPage, Search, Sort } from '$lib/index.js';
+	import {
+		Datatable,
+		functionCreateDatatable,
+		Pagination,
+		RowsPerPage,
+		Search,
+		Sort,
+	} from '$lib/index.js';
 	import type { PageData } from './$types.js';
 
 	const { data }: { data: PageData } = $props();
@@ -32,9 +39,12 @@
 		<span>RESULTS PER PAGE</span>
 	</p>
 	<p>
-		<!-- <Pagination bind:propDatatable={objectDatatable} propSize="small" /> -->
+		<Pagination
+			propTag="button"
+			propDisabledStyle="background: darkgrey;"
+			propActiveStyle="background: blue;color:white;"
+		/>
 	</p>
-
 	<table>
 		<thead>
 			<tr>

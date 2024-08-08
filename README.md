@@ -54,7 +54,7 @@ npm install svelte-datatables-net
 | `parSearchString`      | THE SEARCH STRING CAN BE SET PREVIOUSLY WITH THIS PROP.                                                                                                                      | `string`                             | NO       | `''` (EMPTY STRING)                         |
 | `parRowsPerPage`       | THE INITIAL NUMBER OF ROWS PER PAGE.                                                                                                                                         | `string` (NUMERIC STRING OR `'all'`) | NO       | `'all'`                                     |
 | `parSortBy`            | THE INITIAL SORT COLUMN (A KEY OF `parData`).                                                                                                                                | `keyof Generic`                      | NO       | `undefined` (NO INITIAL SORTING)            |
-| parSortOrder           | THE INITIAL SORT ORDER                                                                                                                                                       | 'ascending' OR 'descending'          | NO       | 'ascending'                                 |
+| `parSortOrder`         | THE INITIAL SORT ORDER.                                                                                                                                                      | 'ascending' OR 'descending'          | NO       | 'ascending'                                 |
 | `parSortFunction`      | A COMPARE FUNCTION THAT SPECIFIES THE INITIAL SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | (a: Generic, b: Generic) => number   | NO       | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
 
 - PROPS OF `Datatable`:
@@ -65,23 +65,42 @@ npm install svelte-datatables-net
 
 - PROPS OF `Search`:
 
-| PROP              | DESCRIPTION               | TYPE     | REQUIRED | DEFAULT        |
-| ----------------- | ------------------------- | -------- | -------- | -------------- |
-| `propPlaceholder` | SEARCH INPUT PLACEHOLDER. | `string` | NO       | 'Type here...' |
+| PROP              | DESCRIPTION                      | TYPE     | REQUIRED | DEFAULT        |
+| ----------------- | -------------------------------- | -------- | -------- | -------------- |
+| `propPlaceholder` | SEARCH INPUT PLACEHOLDER.        | `string` | NO       | 'Type here...' |
+| `class`           | CSS CLASSES OF THE SEARCH INPUT. | `string` | NO       | -              |
+| `style`           | CSS STYLES OF THE SEARCH INPUT.  | `string` | NO       | -              |
 
 - PROPS OF `Pagination`:
 
-| PROP            | DESCRIPTION                                                                         | TYPE                     | REQUIRED | DEFAULT |
-| --------------- | ----------------------------------------------------------------------------------- | ------------------------ | -------- | ------- |
-| `propDatatable` | AN OBJECT WITH THE DATATABLE STATES (OBJECT CREATED WITH `functionCreateDatatable`) | `typeDatatable<Generic>` | YES      | -       |
-| OTHER PROPS...  | SEE [THIS](https://www.npmjs.com/package/pagination-svelte).                        | -                        | NO       | -       |
+| PROP                | DESCRIPTION                                           | TYPE                                         | REQUIRED | DEFAULT |
+| ------------------- | ----------------------------------------------------- | -------------------------------------------- | -------- | ------- |
+| `propTag`           | HTML TAG OF THE PAGINATION ITEM.                      | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | YES      | -       |
+| `propPrevious`      | PREVIOUS BUTTON TEXT.                                 | `string`                                     | NO       | -       |
+| `propNext`          | NEXT BUTTON TEXT.                                     | `string`                                     | NO       | -       |
+| `propComponent`     | OPTIONAL COMPONENT TO USE INSIDE THE PAGINATION ITEM. | `string`                                     | NO       | -       |
+| `style`             | CSS STYLES FOR PAGINATION ITEMS.                      | `string`                                     | NO       | -       |
+| `class`             | CSS CLASSES FOR PAGINATION ITEMS.                     | `string`                                     | NO       | -       |
+| `propDisabledStyle` | CSS STYLES FOR DISABLED PAGINATION ITEMS.             | `string`                                     | NO       | -       |
+| `propDisabledClass` | CSS CLASSES FOR DISABLED PAGINATION ITEMS.            | `string`                                     | NO       | -       |
+| `propActiveStyle`   | CSS STYLES FOR ACTIVE PAGINATION ITEMS.               | `string`                                     | NO       | -       |
+| `propActiveClass`   | CSS CLASSES FOR ACTIVE PAGINATION ITEMS.              | `string`                                     | NO       | -       |
+
+- PROPS OF `RowsPerPage`:
+
+| PROP    | DESCRIPTION                      | TYPE     | REQUIRED | DEFAULT |
+| ------- | -------------------------------- | -------- | -------- | ------- |
+| `class` | CSS CLASSES OF THE SELECT INPUT. | `string` | NO       | -       |
+| `style` | CSS STYLES OF THE SELECT INPUT.  | `string` | NO       | -       |
 
 - PROPS OF `Sort`:
 
-| PROP            | DESCRIPTION                                                                         | TYPE                     | REQUIRED | DEFAULT |
-| --------------- | ----------------------------------------------------------------------------------- | ------------------------ | -------- | ------- |
-| `propDatatable` | AN OBJECT WITH THE DATATABLE STATES (OBJECT CREATED WITH `functionCreateDatatable`) | `typeDatatable<Generic>` | YES      | -       |
-| `propIconSize`  | SIZE OF THE SORT ICON                                                               | `number`                 | NO       | 10      |
+| PROP               | DESCRIPTION                                                                                                                                                          | TYPE                                 | REQUIRED | DEFAULT                                     |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------- | ------------------------------------------- |
+| `propDatatable`    | AN OBJECT WITH THE DATATABLE STATES (OBJECT CREATED WITH `functionCreateDatatable`)                                                                                  | `typeDatatable<Generic>`             | YES      | -                                           |
+| `propColumn`       | COLUMN TO SORT.                                                                                                                                                      | `keyof Generic`                      | YES      | -                                           |
+| `propIconSize`     | SIZE OF THE SORT ICON                                                                                                                                                | `number`                             | NO       | 10                                          |
+| `propSortFunction` | A COMPARE FUNCTION THAT SPECIFIES THE SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | `(a: Generic, b: Generic) => number` | NO       | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
 
 ## EXAMPLES
 
@@ -92,6 +111,7 @@ npm install svelte-datatables-net
 	import {
 		Datatable,
 		functionCreateDatatable,
+		Pagination,
 		RowsPerPage,
 		Search,
 		Sort,
@@ -145,9 +165,12 @@ npm install svelte-datatables-net
 		<span>RESULTS PER PAGE</span>
 	</p>
 	<p>
-		<!--<Pagination bind:propDatatable={stateDatatable} propSize="small" />-->
+		<Pagination
+			propTag="button"
+			propDisabledStyle="background: darkgrey;"
+			propActiveStyle="background: blue;color:white;"
+		/>
 	</p>
-
 	<table>
 		<thead>
 			<tr>
@@ -182,10 +205,12 @@ npm install svelte-datatables-net
 	import {
 		Datatable,
 		functionCreateDatatable,
+		Pagination,
 		RowsPerPage,
 		Search,
 		Sort,
 	} from 'svelte-datatables-net';
+	import PaginationItem from './PaginationItem.svelte';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -250,11 +275,26 @@ npm install svelte-datatables-net
 				</div>
 			</div>
 			<!---->
+			<!-- PAGINATION -->
+			<div class="d-flex justify-content-center justify-content-md-end">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<Pagination
+							propTag="li"
+							class="page-item"
+							PropComponent={PaginationItem}
+							propDisabledClass="disabled"
+							propActiveClass="active"
+						/>
+					</ul>
+				</nav>
+			</div>
+			<!---->
 			{#if objectDatatable.arraySearched.length === 0}
 				<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
 			{:else}
 				<!-- TABLE -->
-				<table class="table table-striped table-sm mt-2">
+				<table class="table table-striped table-sm">
 					<thead>
 						<tr>
 							<th>
@@ -279,15 +319,28 @@ npm install svelte-datatables-net
 					</tbody>
 				</table>
 				<!---->
-				<!-- PAGINATION -->
-				<div class="d-flex justify-content-center justify-content-md-end mb-5">
-					<!-- <Pagination bind:propDatatable={objectDatatable} propSize="default" /> -->
-				</div>
-				<!---->
 			{/if}
 		</div>
 	</div>
 </Datatable>
+```
+
+WHERE `PaginationItem.svelte` IS:
+
+```svelte
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+
+	let {
+		children,
+	}: {
+		children?: Snippet;
+	} = $props();
+</script>
+
+{#if children}
+	<span class="page-link">{@render children()}</span>
+{/if}
 ```
 
 ## DEVELOPING

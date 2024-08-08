@@ -18,10 +18,10 @@
 		propTag,
 		propPrevious = 'PREVIOUS',
 		propNext = 'NEXT',
-		propDisabledStyle,
-		propDisabledClass,
-		propActiveStyle,
-		propActiveClass,
+		propDisabledStyle = '',
+		propDisabledClass = '',
+		propActiveStyle = '',
+		propActiveClass = '',
 		...propRest
 	}: {
 		PropComponent?: Component;
@@ -41,8 +41,8 @@
 {#if stateDatatable.numberActivePage === 1}
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style ?? ''};${propDisabledStyle ?? ''};cursor:not-allowed;`}
-		class={`${propRest.class ?? ''} ${propDisabledClass ?? ''}`}
+		style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
+		class={`${propRest.class ?? ''} ${propDisabledClass}`}
 	>
 		{#if PropComponent}
 			<PropComponent>
@@ -76,8 +76,8 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style ?? ''};${stateDatatable.numberActivePage === numberCounter + 1 ? (propActiveStyle ?? '') : ''};${stateDatatable.numberActivePage === numberCounter + 1 ? 'cursor:default;' : 'cursor:pointer;'}`}
-		class={`${propRest.class ?? ''} ${stateDatatable.numberActivePage === numberCounter + 1 ? (propActiveClass ?? '') : ''}`}
+		style={`${propRest.style ?? ''};${stateDatatable.numberActivePage === numberCounter + 1 ? propActiveStyle : ''};${stateDatatable.numberActivePage === numberCounter + 1 ? 'cursor:default;' : 'cursor:pointer;'}`}
+		class={`${propRest.class ?? ''} ${stateDatatable.numberActivePage === numberCounter + 1 ? propActiveClass : ''}`}
 		onclick={() => {
 			stateDatatable.numberActivePage = numberCounter + 1;
 		}}
@@ -95,8 +95,8 @@
 {#if stateDatatable.numberActivePage === derivedNumberOfPages}
 	<svelte:element
 		this={propTag}
-		style={`${propRest.style ?? ''};${propDisabledStyle ?? ''};cursor:not-allowed;`}
-		class={`${propRest.class ?? ''} ${propDisabledClass ?? ''}`}
+		style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
+		class={`${propRest.class ?? ''} ${propDisabledClass}`}
 	>
 		{#if PropComponent}
 			<PropComponent>

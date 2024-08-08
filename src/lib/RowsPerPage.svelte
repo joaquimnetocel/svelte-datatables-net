@@ -15,9 +15,9 @@
 		children,
 		...propRest
 	}: {
+		children: Snippet;
 		class?: string;
 		style?: string;
-		children: Snippet;
 	} = $props();
 
 	const functionChange = function () {
@@ -29,11 +29,6 @@
 	};
 </script>
 
-<select
-	bind:value={stateDatatable.stringRowsPerPage}
-	onchange={functionChange}
-	style={propRest.style}
-	class={propRest.class}
->
+<select bind:value={stateDatatable.stringRowsPerPage} onchange={functionChange} {...propRest}>
 	{@render children()}
 </select>
