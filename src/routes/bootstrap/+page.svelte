@@ -28,7 +28,7 @@
 		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' },
 	];
 
-	let objectDatatable = $state(
+	let stateDatatable = $state(
 		functionCreateDatatable({
 			parData: arrayUsers,
 			parSearchableColumns: ['name', 'city'],
@@ -49,7 +49,7 @@
 	/>
 </svelte:head>
 
-<Datatable bind:propDatatable={objectDatatable}>
+<Datatable bind:propDatatable={stateDatatable}>
 	<div class="container-sm">
 		<div class="mx-3">
 			<!-- SEARCH & RESULTS PER PAGE -->
@@ -87,7 +87,7 @@
 				</nav>
 			</div>
 			<!---->
-			{#if objectDatatable.arraySearched.length === 0}
+			{#if stateDatatable.arraySearched.length === 0}
 				<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
 			{:else}
 				<!-- TABLE -->
@@ -95,17 +95,17 @@
 					<thead>
 						<tr>
 							<th>
-								<Sort propDatatable={objectDatatable} propColumn={'id'}>ID</Sort>
+								<Sort propDatatable={stateDatatable} propColumn={'id'}>ID</Sort>
 							</th>
 							<th>
-								<Sort propDatatable={objectDatatable} propColumn={'name'}>NAME</Sort>
+								<Sort propDatatable={stateDatatable} propColumn={'name'}>NAME</Sort>
 							</th>
 							<th>AGE</th>
 							<th>CITY</th>
 						</tr>
 					</thead>
 					<tbody>
-						{#each objectDatatable.arrayData as row}
+						{#each stateDatatable.arrayData as row}
 							<tr>
 								<td>{row.id}</td>
 								<td>{row.name}</td>

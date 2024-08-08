@@ -11,7 +11,7 @@
 
 	const { data }: { data: PageData } = $props();
 
-	let objectDatatable = $state(
+	let stateDatatable = $state(
 		functionCreateDatatable({
 			parData: data.arrayData,
 			parSearchableColumns: ['id', 'brand', 'category', 'description'],
@@ -23,7 +23,7 @@
 	);
 </script>
 
-<Datatable bind:propDatatable={objectDatatable}>
+<Datatable bind:propDatatable={stateDatatable}>
 	<p>
 		<span>Search:</span>
 		<Search propPlaceholder="Type here..." />
@@ -49,10 +49,10 @@
 		<thead>
 			<tr>
 				<th>
-					<Sort propDatatable={objectDatatable} propColumn={'id'}>ID (click here)</Sort>
+					<Sort propDatatable={stateDatatable} propColumn={'id'}>ID (click here)</Sort>
 				</th>
 				<th>
-					<Sort propDatatable={objectDatatable} propColumn={'brand'}>BRAND (click here)</Sort>
+					<Sort propDatatable={stateDatatable} propColumn={'brand'}>BRAND (click here)</Sort>
 				</th>
 				<th>CATEGORY</th>
 				<th>DESCRIPTION</th>
@@ -60,7 +60,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each objectDatatable.arrayData as row}
+			{#each stateDatatable.arrayData as row}
 				<tr>
 					<td>{row.id}</td>
 					<td>{row.brand}</td>
