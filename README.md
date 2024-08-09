@@ -39,7 +39,7 @@ npm install svelte-datatables-net
 - `Datatable`: Datatable element surrounding your table structure.
 - `Search`: A svelte component with a search input.
 - `RowsPerPage`: A svelte component with a select input to choose the number of rows per page.
-- `Pagination`: A svelte component to change the active page.
+- `PaginationItems`: A svelte component for pagination.
 - `Sort`: A svelte component that enable sorting for a specific column.
 - `typeDatatable`: If you are using typescript, it is a type definition for the component states.
 
@@ -73,21 +73,22 @@ npm install svelte-datatables-net
 
 - PROPS OF `PaginationItems`:
 
-| PROP                | DESCRIPTION                                           | TYPE                                         | REQUIRED | DEFAULT |
-| ------------------- | ----------------------------------------------------- | -------------------------------------------- | -------- | ------- |
-| `propTag`           | HTML TAG OF THE PAGINATION ITEM.                      | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | YES      | -       |
-| `propInnerTag`      | HTML TAG INSIDE THE PAGINATION ITEM.                  | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | NO       | `span`  |
-| `propPrevious`      | PREVIOUS BUTTON TEXT.                                 | `string`                                     | NO       | -       |
-| `propNext`          | NEXT BUTTON TEXT.                                     | `string`                                     | NO       | -       |
-| `propComponent`     | OPTIONAL COMPONENT TO USE INSIDE THE PAGINATION ITEM. | `string`                                     | NO       | -       |
-| `style`             | CSS STYLES FOR PAGINATION ITEMS.                      | `string`                                     | NO       | -       |
-| `class`             | CSS CLASSES FOR PAGINATION ITEMS.                     | `string`                                     | NO       | -       |
-| `propDisabledStyle` | CSS STYLES FOR DISABLED PAGINATION ITEMS.             | `string`                                     | NO       | -       |
-| `propDisabledClass` | CSS CLASSES FOR DISABLED PAGINATION ITEMS.            | `string`                                     | NO       | -       |
-| `propActiveStyle`   | CSS STYLES FOR ACTIVE PAGINATION ITEMS.               | `string`                                     | NO       | -       |
-| `propActiveClass`   | CSS CLASSES FOR ACTIVE PAGINATION ITEMS.              | `string`                                     | NO       | -       |
-| `propInnerClass`    | CSS CLASSES FOR THE TAG INSIDE PAGINATION ITEMS.      | `string`                                     | NO       | -       |
-| `propInnerStyle`    | CSS CLASSES FOR THE TAG INSIDE PAGINATION ITEMS.      | `string`                                     | NO       | -       |
+| PROP                 | DESCRIPTION                                                                              | TYPE                                         | REQUIRED | DEFAULT |
+| -------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------- | -------- | ------- |
+| `propTag`            | HTML TAG OF THE PAGINATION ITEM.                                                         | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | YES      | -       |
+| `propInnerTag`       | HTML TAG INSIDE THE PAGINATION ITEM.                                                     | `'span' OR 'div' OR 'li' OR 'button' OR 'a'` | NO       | `span`  |
+| `propPrevious`       | PREVIOUS BUTTON TEXT.                                                                    | `string`                                     | NO       | -       |
+| `propNext`           | NEXT BUTTON TEXT.                                                                        | `string`                                     | NO       | -       |
+| `propShortMode`      | IF IN SHORT MODE, PAGINATION WILL SHOW ONLY FORWARD AND BACKWARD BUTTONS.                | `boolean`                                    | NO       | `false` |
+| `propShortModeLimit` | IF THE NUMBER OF PAGES IS GREATER THAN `propShortModeLimit` THE SHORT MODE IS ACTIVATED. | `number`                                     | NO       | `1000`  |
+| `style`              | CSS STYLES FOR PAGINATION ITEMS.                                                         | `string`                                     | NO       | -       |
+| `class`              | CSS CLASSES FOR PAGINATION ITEMS.                                                        | `string`                                     | NO       | -       |
+| `propDisabledStyle`  | CSS STYLES FOR DISABLED PAGINATION ITEMS.                                                | `string`                                     | NO       | -       |
+| `propDisabledClass`  | CSS CLASSES FOR DISABLED PAGINATION ITEMS.                                               | `string`                                     | NO       | -       |
+| `propActiveStyle`    | CSS STYLES FOR ACTIVE PAGINATION ITEMS.                                                  | `string`                                     | NO       | -       |
+| `propActiveClass`    | CSS CLASSES FOR ACTIVE PAGINATION ITEMS.                                                 | `string`                                     | NO       | -       |
+| `propInnerClass`     | CSS CLASSES FOR THE TAG INSIDE PAGINATION ITEMS.                                         | `string`                                     | NO       | -       |
+| `propInnerStyle`     | CSS CLASSES FOR THE TAG INSIDE PAGINATION ITEMS.                                         | `string`                                     | NO       | -       |
 
 - PROPS OF `RowsPerPage`:
 
