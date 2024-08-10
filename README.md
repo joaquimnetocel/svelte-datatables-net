@@ -21,17 +21,21 @@
 - NON-OPINIONATED POSITIONING.
 - TYPESCRIPT SUPPORT.
 
+## INSTALLATION
+
+```bash
+npm install svelte-datatables-net
+```
+
 ## DEMOS
 
 - [REPL: BOOTSTRAP 5 EXAMPLE](https://svelte.dev/repl/d5a7803dd61041b0b6e0d0efcd743580)
 - [REPL: SKELETON EXAMPLE](https://svelte.dev/repl/b2e43168303f4f1ba67c84a0c3c0fea0)
 - [REPL: FETCH EXAMPLE](https://svelte.dev/repl/755b541084534ad9b507e37af2e4c218)
 
-## INSTALLATION
+## EXAMPLES AND DEVELOPING
 
-```bash
-npm install svelte-datatables-net
-```
+ONCE YOU'VE INSTALLED THE DEPENDENCIES WITH `npm install`, START A DEVELOPMENT SERVER TO RUN THE EXAMPLES IN THE `routes` FOLDER WITH `npm run dev`.
 
 ## COMPONENT STRUCTURE
 
@@ -106,7 +110,3 @@ npm install svelte-datatables-net
 | `propColumn`       | COLUMN TO SORT.                                                                                                                                                      | `keyof Generic`                      | YES      | -                                           |
 | `propIconSize`     | SIZE OF THE SORT ICON                                                                                                                                                | `number`                             | NO       | 10                                          |
 | `propSortFunction` | A COMPARE FUNCTION THAT SPECIFIES THE SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | `(a: Generic, b: Generic) => number` | NO       | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
-
-## EXAMPLES AND DEVELOPING
-
-ONCE YOU'VE INSTALLED THE DEPENDENCIES WITH `npm install`, START A DEVELOPMENT SERVER TO RUN THE EXAMPLES IN THE `routes` FOLDER WITH `npm run dev`.
