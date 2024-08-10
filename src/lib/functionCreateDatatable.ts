@@ -9,6 +9,7 @@ type typeParameters<Generic> = {
 	parSortBy?: keyof Generic;
 	parSortOrder?: 'ascending' | 'descending';
 	parSortFunction?: (a: Generic, b: Generic) => number;
+	parActivePage?: number;
 };
 
 export const functionCreateDatatable = function <Generic>({
@@ -19,6 +20,7 @@ export const functionCreateDatatable = function <Generic>({
 	parSortBy,
 	parSortOrder = 'ascending',
 	parSortFunction,
+	parActivePage = 1,
 }: typeParameters<Generic>): typeDatatable<Generic> {
 	if (parSortFunction === undefined) {
 		const sortModifier = parSortOrder === 'ascending' ? 1 : -1;
@@ -37,22 +39,25 @@ export const functionCreateDatatable = function <Generic>({
 		parSortFunction = functionDefaultSortFunction;
 	}
 
-	const objectSorted = parData.sort(parSortFunction);
-	const objectSearched = functionSearch(objectSorted, parSearchString, parSearchableColumns);
+	const arraySorted = parData.sort(parSortFunction);
+	const arraySearched = functionSearch(arraySorted, parSearchString, parSearchableColumns);
 	const numberRowsPerPage =
-		parRowsPerPage === 'all' ? objectSearched.length : parseInt(parRowsPerPage);
+		parRowsPerPage === 'all' ? arraySearched.length : parseInt(parRowsPerPage);
+	const numberLastPage = Math.ceil(arraySearched.length / numberRowsPerPage);
+	const numberActivePage = parActivePage > numberLastPage ? 1 : parActivePage;
 
 	return {
 		arrayRawData: parData,
-		arraySorted: objectSorted,
-		arraySearched: objectSearched,
-		arrayData: objectSearched.slice(0, numberRowsPerPage),
 		stringSortBy: parSortBy,
+		arraySorted,
+		arraySearched,
+		arrayData: arraySearched.slice(0, numberRowsPerPage),
 		stringRowsPerPage: parRowsPerPage,
-		numberRowsPerPage: numberRowsPerPage,
-		numberActivePage: 1,
-		numberFirstRow: 0,
-		numberLastRow: numberRowsPerPage,
+		numberRowsPerPage,
+		numberLastPage,
+		numberActivePage,
+		numberFirstRow: (numberActivePage - 1) * numberRowsPerPage + 1,
+		numberLastRow: Math.min(arraySearched.length, numberActivePage * numberRowsPerPage),
 		stringSearchString: parSearchString,
 		arraySearchableColumns: parSearchableColumns,
 		stringSortOrder: parSortOrder,

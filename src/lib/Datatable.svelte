@@ -19,6 +19,8 @@
 
 	$effect(() => {
 		propDatatable.arraySorted = propDatatable.arrayRawData.sort(propDatatable.functionSort);
+	});
+	$effect(() => {
 		propDatatable.arraySearched = functionSearch(
 			propDatatable.arraySorted,
 			propDatatable.stringSearchString,
@@ -26,18 +28,18 @@
 		);
 	});
 	$effect(() => {
+		propDatatable.numberFirstRow =
+			(propDatatable.numberActivePage - 1) * propDatatable.numberRowsPerPage + 1;
+		propDatatable.numberLastRow = Math.min(
+			propDatatable.arraySearched.length,
+			propDatatable.numberActivePage * propDatatable.numberRowsPerPage,
+		);
 		propDatatable.arrayData = propDatatable.arraySearched.slice(
-			propDatatable.numberFirstRow,
+			propDatatable.numberFirstRow - 1,
 			propDatatable.numberLastRow,
 		);
-	});
-	$effect(() => {
-		propDatatable.numberFirstRow =
-			(propDatatable.numberActivePage - 1) * propDatatable.numberRowsPerPage;
-		propDatatable.numberLastRow = propDatatable.numberActivePage * propDatatable.numberRowsPerPage;
-		propDatatable.arrayData = propDatatable.arraySearched.slice(
-			propDatatable.numberFirstRow,
-			propDatatable.numberLastRow,
+		propDatatable.numberLastPage = Math.ceil(
+			propDatatable.arraySearched.length / propDatatable.numberRowsPerPage,
 		);
 	});
 </script>

@@ -55,7 +55,8 @@ npm install svelte-datatables-net
 | `parRowsPerPage`       | THE INITIAL NUMBER OF ROWS PER PAGE.                                                                                                                                         | `string` (NUMERIC STRING OR `'all'`) | NO       | `'all'`                                     |
 | `parSortBy`            | THE INITIAL SORT COLUMN (A KEY OF `parData`).                                                                                                                                | `keyof Generic`                      | NO       | `undefined` (NO INITIAL SORTING)            |
 | `parSortOrder`         | THE INITIAL SORT ORDER.                                                                                                                                                      | 'ascending' OR 'descending'          | NO       | 'ascending'                                 |
-| `parSortFunction`      | A COMPARE FUNCTION THAT SPECIFIES THE INITIAL SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | (a: Generic, b: Generic) => number   | NO       | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
+| `parSortFunction`      | A COMPARE FUNCTION THAT SPECIFIES THE INITIAL SORT ORDER. ([MORE DETAILS HERE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) | `(a: Generic, b: Generic) => number` | NO       | A STANDARD FUNCTION TO SORT ALPHABETICALLY. |
+| `parActivePage`        | ACTIVE PAGE FOR PAGINATION.                                                                                                                                                  | number                               | NO       | `1`                                         |
 
 - PROPS OF `Datatable`:
 

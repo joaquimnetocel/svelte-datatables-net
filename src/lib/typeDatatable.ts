@@ -7,6 +7,7 @@ export type typeDatatable<Generic> = {
 	stringSortOrder: 'ascending' | 'descending';
 	stringRowsPerPage: `${number}` | 'all';
 	numberRowsPerPage: number;
+	numberLastPage: number;
 	numberActivePage: number;
 	numberFirstRow: number;
 	numberLastRow: number;

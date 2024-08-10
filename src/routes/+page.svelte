@@ -35,6 +35,7 @@
 			parSortBy: 'city',
 			parSortOrder: 'ascending',
 			parSearchString: '',
+			parActivePage: 1,
 		}),
 	);
 </script>
@@ -88,3 +89,8 @@
 		</tbody>
 	</table>
 </Datatable>
+
+<p>
+	SHOWING {stateDatatable.numberFirstRow} TO {stateDatatable.numberLastRow} OF {stateDatatable
+		.arraySearched.length} ITEMS
+</p>
