@@ -1,10 +1,20 @@
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+
+	let {
+		children,
+	}: {
+		children: Snippet;
+	} = $props();
+</script>
+
 <ul>
 	<li><a href="/">SKELETON EXAMPLE</a></li>
 	<li><a href="/fetch">FETCH EXAMPLE</a></li>
 	<li><a href="/bootstrap">BOOTSTRAP 5 EXAMPLE</a></li>
 </ul>
 
-<slot />
+{@render children()}
 
 <style>
 	ul {
