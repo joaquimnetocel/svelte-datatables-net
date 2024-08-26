@@ -35,7 +35,14 @@ npm install svelte-datatables-net
 
 ## EXAMPLES AND DEVELOPING
 
-ONCE YOU'VE INSTALLED THE DEPENDENCIES WITH `npm install`, START A DEVELOPMENT SERVER TO RUN THE EXAMPLES IN THE `routes` FOLDER WITH `npm run dev`.
+To run the examples from `/src/routes`:
+
+```bash
+git clone https://github.com/joaquimnetocel/svelte-datatables-net.git
+cd svelte-datatables-net
+npm install
+npm run dev
+```
 
 ## COMPONENT STRUCTURE
 
