@@ -3,13 +3,10 @@
 		"esbenp.prettier-vscode", // PRETTIER
 		"svelte.svelte-vscode", // SVELTE FOR VS CODE
 		"dbaeumer.vscode-eslint", // ESLINT
-
 		"natqe.reload", // RELOAD
 		"formulahendry.auto-rename-tag", // AUTO RENAME TAG
 		"shd101wyy.markdown-preview-enhanced", // MARKDOWN PREVIEW ENHANCED
 		"DavidAnson.vscode-markdownlint", // MARKDOWNLINT
-
-		"MrAmericanMike.sveltesnippets", // SVELTE SNIPPETS
 		"Chanzhaoyu.svelte-5-snippets" // SVELTE 5 SNIPPETS
 	]
 }
