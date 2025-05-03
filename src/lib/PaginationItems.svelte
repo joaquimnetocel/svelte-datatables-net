@@ -3,35 +3,28 @@
 	import { iconFastBackward } from '$lib/iconFastBackward.js';
 	import { iconFastForward } from '$lib/iconFastForward.js';
 	import { iconForward } from '$lib/iconForward.js';
-	import { getContext } from 'svelte';
-	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
 	// eslint-disable-next-line no-undef
-	type typeData = Generic;
-
-	let stateDatatable = getContext<typeDatatable<typeData>>(symbolContext);
-	let derivedNumberOfPages = $derived(
-		stateDatatable.numberRowsPerPage === Infinity
-			? 1
-			: Math.ceil(stateDatatable.arraySearched.length / stateDatatable.numberRowsPerPage),
-	);
+	type typeGeneric = Generic;
 
 	let {
+		data,
 		propTag,
 		propInnerTag = 'span',
-		propPrevious = 'PREVIOUS',
-		propNext = 'NEXT',
+		previous = 'PREVIOUS',
+		next = 'NEXT',
 		propDisabledStyle = '',
 		propDisabledClass = '',
 		propActiveStyle = '',
 		propActiveClass = '',
 		propInnerStyle = '',
 		propInnerClass = '',
-		propShortMode = false,
-		propShortModeLimit = 1000,
+		shortMode = false,
+		shortModeLimit = 1000,
 		...propRest
 	}: {
+		data: typeDatatable<typeGeneric>;
 		propTag: 'span' | 'div' | 'li' | 'button' | 'a';
 		propInnerTag?: 'span' | 'div' | 'li' | 'button' | 'a';
 		propDisabledStyle?: string;
@@ -40,19 +33,20 @@
 		propActiveClass?: string;
 		propInnerStyle?: string;
 		propInnerClass?: string;
-		propPrevious?: string;
-		propNext?: string;
+		previous?: string;
+		next?: string;
 		style?: string;
 		class?: string;
-		propShortMode?: boolean;
-		propShortModeLimit?: number;
+		shortMode?: boolean;
+		shortModeLimit?: number;
 	} = $props();
 
 	let stateShowInput = $state(false);
 
-	let derivedShortMode = $derived(
-		propShortMode === true || derivedNumberOfPages > propShortModeLimit,
+	let derivedNumberOfPages = $derived(
+		data.rowsPerPage === Infinity ? 1 : Math.ceil(data.searched.length / data.rowsPerPage),
 	);
+	let derivedShortMode = $derived(shortMode === true || derivedNumberOfPages > shortModeLimit);
 
 	function functionOnKeyDown(e: { keyCode: number }) {
 		switch (e.keyCode) {
@@ -66,11 +60,11 @@
 		event.currentTarget.value = event.currentTarget.value.replace(/[^0-9]*/g, '');
 		if (event.currentTarget.value !== '' && parseInt(event.currentTarget.value)) {
 			if (parseInt(event.currentTarget.value) > derivedNumberOfPages) {
-				stateDatatable.numberActivePage = derivedNumberOfPages;
+				data.activePage = derivedNumberOfPages;
 				return;
 			}
 			if (parseInt(event.currentTarget.value) > 0) {
-				stateDatatable.numberActivePage = parseInt(event.currentTarget.value);
+				data.activePage = parseInt(event.currentTarget.value);
 			}
 		}
 	}
@@ -78,7 +72,7 @@
 
 <!-- FAST BACKWARD -->
 {#if derivedShortMode}
-	{#if stateDatatable.numberActivePage === 1}
+	{#if data.activePage === 1}
 		<svelte:element
 			this={propTag}
 			style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
@@ -100,7 +94,7 @@
 			this={propTag}
 			style={`${propRest.style ?? ''};cursor:pointer`}
 			onclick={() => {
-				stateDatatable.numberActivePage = 1;
+				data.activePage = 1;
 			}}
 			class={`${propRest.class ?? ''}`}
 		>
@@ -118,7 +112,7 @@
 {/if}
 <!---->
 <!-- PREVIOUS -->
-{#if stateDatatable.numberActivePage === 1}
+{#if data.activePage === 1}
 	<svelte:element
 		this={propTag}
 		style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
@@ -130,14 +124,14 @@
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html iconBackward}
 				{:else}
-					{propPrevious}
+					{previous}
 				{/if}
 			</svelte:element>
 		{:else if derivedShortMode}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html iconBackward}
 		{:else}
-			{propPrevious}
+			{previous}
 		{/if}
 	</svelte:element>
 {:else}
@@ -146,7 +140,7 @@
 		this={propTag}
 		style={`${propRest.style ?? ''};cursor:pointer`}
 		onclick={() => {
-			stateDatatable.numberActivePage = stateDatatable.numberActivePage - 1;
+			data.activePage = data.activePage - 1;
 		}}
 		class={`${propRest.class ?? ''}`}
 	>
@@ -156,14 +150,14 @@
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html iconBackward}
 				{:else}
-					{propPrevious}
+					{previous}
 				{/if}
 			</svelte:element>
 		{:else if derivedShortMode}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html iconBackward}
 		{:else}
-			{propPrevious}
+			{previous}
 		{/if}
 	</svelte:element>
 {/if}
@@ -178,7 +172,7 @@
 			min="1"
 			max={derivedNumberOfPages}
 			step="1"
-			value={stateDatatable.numberActivePage}
+			value={data.activePage}
 			onkeydown={functionOnKeyDown}
 			oninput={functionOnInput}
 			onfocusout={() => {
@@ -195,10 +189,10 @@
 		>
 			{#if propInnerTag}
 				<svelte:element this={propInnerTag} style={propInnerStyle} class={propInnerClass}>
-					{stateDatatable.numberActivePage}
+					{data.activePage}
 				</svelte:element>
 			{:else}
-				{stateDatatable.numberActivePage}
+				{data.activePage}
 			{/if}
 		</svelte:element>
 	{/if}
@@ -207,10 +201,10 @@
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<svelte:element
 			this={propTag}
-			style={`${propRest.style ?? ''};${stateDatatable.numberActivePage === numberCounter + 1 ? propActiveStyle : ''};${stateDatatable.numberActivePage === numberCounter + 1 ? 'cursor:default;' : 'cursor:pointer;'}`}
-			class={`${propRest.class ?? ''} ${stateDatatable.numberActivePage === numberCounter + 1 ? propActiveClass : ''}`}
+			style={`${propRest.style ?? ''};${data.activePage === numberCounter + 1 ? propActiveStyle : ''};${data.activePage === numberCounter + 1 ? 'cursor:default;' : 'cursor:pointer;'}`}
+			class={`${propRest.class ?? ''} ${data.activePage === numberCounter + 1 ? propActiveClass : ''}`}
 			onclick={() => {
-				stateDatatable.numberActivePage = numberCounter + 1;
+				data.activePage = numberCounter + 1;
 			}}
 		>
 			{#if propInnerTag}
@@ -224,7 +218,7 @@
 	{/each}
 {/if}
 <!-- NEXT -->
-{#if stateDatatable.numberActivePage === derivedNumberOfPages}
+{#if data.activePage === derivedNumberOfPages}
 	<svelte:element
 		this={propTag}
 		style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
@@ -236,14 +230,14 @@
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html iconForward}
 				{:else}
-					{propNext}
+					{next}
 				{/if}
 			</svelte:element>
 		{:else if derivedShortMode}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html iconForward}
 		{:else}
-			{propNext}
+			{next}
 		{/if}
 	</svelte:element>
 {:else}
@@ -253,7 +247,7 @@
 		style={`${propRest.style ?? ''};cursor:pointer`}
 		class={`${propRest.class ?? ''}`}
 		onclick={() => {
-			stateDatatable.numberActivePage = stateDatatable.numberActivePage + 1;
+			data.activePage = data.activePage + 1;
 		}}
 	>
 		{#if propInnerTag}
@@ -262,21 +256,21 @@
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html iconForward}
 				{:else}
-					{propNext}
+					{next}
 				{/if}
 			</svelte:element>
 		{:else if derivedShortMode}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html iconForward}
 		{:else}
-			{propNext}
+			{next}
 		{/if}
 	</svelte:element>
 {/if}
 <!---->
 <!-- FAST FORWARD -->
 {#if derivedShortMode}
-	{#if stateDatatable.numberActivePage === derivedNumberOfPages}
+	{#if data.activePage === derivedNumberOfPages}
 		<svelte:element
 			this={propTag}
 			style={`${propRest.style ?? ''};${propDisabledStyle};cursor:not-allowed;`}
@@ -299,7 +293,7 @@
 			style={`${propRest.style ?? ''};cursor:pointer`}
 			class={`${propRest.class ?? ''}`}
 			onclick={() => {
-				stateDatatable.numberActivePage = derivedNumberOfPages;
+				data.activePage = derivedNumberOfPages;
 			}}
 		>
 			{#if propInnerTag}

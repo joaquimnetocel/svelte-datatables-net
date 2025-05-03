@@ -1,25 +1,20 @@
 <script lang="ts" generics="Generic">
 	import type { Snippet } from 'svelte';
-	import { getContext } from 'svelte';
-	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
 	// eslint-disable-next-line no-undef
-	type typeData = Generic;
-	type typeSortFunction = (a: typeData, b: typeData) => number;
-
-	let stateDatatable = getContext<typeDatatable<typeData>>(symbolContext);
+	type typeGeneric = Generic;
+	type typeSortFunction = (a: typeGeneric, b: typeGeneric) => number;
 
 	let {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		propDatatable, // NOT USED. JUST TO PROVIDE TYPING TO propColumn
-		propColumn,
+		data,
+		key,
 		propIconSize = 10,
 		propSortFunction = functionDefaultSortFunction,
 		children,
 	}: {
-		propDatatable: typeDatatable<typeData>;
-		propColumn: keyof typeData;
+		data: typeDatatable<typeGeneric>;
+		key: keyof typeGeneric;
 		propIconSize?: number;
 		propSortFunction?: typeSortFunction;
 		children: Snippet;
@@ -27,22 +22,21 @@
 	/////
 	// FUNCTIONS
 	function functionUpdateSortConfig() {
-		if (stateDatatable.stringSortBy === propColumn) {
-			stateDatatable.stringSortOrder =
-				stateDatatable.stringSortOrder === 'ascending' ? 'descending' : 'ascending';
-			stateDatatable.functionSort = propSortFunction;
+		if (data.sortBy === key) {
+			data.sortOrder = data.sortOrder === 'ascending' ? 'descending' : 'ascending';
+			data.sortFunction = propSortFunction;
 			return;
 		}
-		stateDatatable.stringSortBy = propColumn;
-		stateDatatable.stringSortOrder = 'ascending';
-		stateDatatable.functionSort = propSortFunction;
+		data.sortBy = key;
+		data.sortOrder = 'ascending';
+		data.sortFunction = propSortFunction;
 	}
-	function functionDefaultSortFunction(elementA: typeData, elementB: typeData) {
-		const sortModifier = stateDatatable.stringSortOrder === 'ascending' ? 1 : -1;
-		if (elementA[propColumn] < elementB[propColumn]) {
+	function functionDefaultSortFunction(elementA: typeGeneric, elementB: typeGeneric) {
+		const sortModifier = data.sortOrder === 'ascending' ? 1 : -1;
+		if (elementA[key] < elementB[key]) {
 			return -1 * sortModifier;
 		}
-		if (elementA[propColumn] > elementB[propColumn]) {
+		if (elementA[key] > elementB[key]) {
 			return 1 * sortModifier;
 		}
 		return 0;
@@ -57,8 +51,8 @@
 	onclick={functionUpdateSortConfig}
 >
 	{@render children()}
-	{#if stateDatatable.stringSortBy === propColumn}
-		{#if stateDatatable.stringSortOrder === 'ascending'}
+	{#if data.sortBy === key}
+		{#if data.sortOrder === 'ascending'}
 			<!-- <i class="fa-solid fa-caret-down" /> -->
 			<svg width={propIconSize} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
 				<path

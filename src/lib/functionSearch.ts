@@ -1,26 +1,28 @@
-export const functionSearch = function <Generic>(
-	parData: Generic[],
-	parSearchString: string,
-	parSearchableColumns?: (keyof Generic)[],
-) {
-	const arraySearchable = parData.map((currentData) => {
-		if (parSearchableColumns === undefined) {
+export const functionSearch = function <Generic>({
+	data,
+	string,
+	keys,
+}: {
+	data: Generic[];
+	string: string;
+	keys?: (keyof Generic)[];
+}) {
+	const searchable = data.map((currentData) => {
+		if (keys === undefined) {
 			return {
-				objectData: currentData,
-				stringSearchable: '',
+				data: currentData,
+				searchableString: '',
 			};
 		}
-		const arraySearchablesBeforeJoin = parSearchableColumns.map((current) => {
-			return currentData[current];
-		});
+		const arraySelected = keys.map((currentKey) => currentData[currentKey]);
 		return {
-			objectData: currentData,
-			stringSearchable: arraySearchablesBeforeJoin.join(' ').toLowerCase(),
+			data: currentData,
+			searchableString: arraySelected.join(' ').toLowerCase(),
 		};
 	});
 
-	const arrayFilteredSearchable = arraySearchable.filter((current) =>
-		current.stringSearchable.includes(parSearchString.toLocaleLowerCase()),
+	const results = searchable.filter((current) =>
+		current.searchableString.includes(string.toLocaleLowerCase()),
 	);
-	return arrayFilteredSearchable.map((current) => current.objectData);
+	return results.map((current) => current.data);
 };

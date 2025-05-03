@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		Datatable,
-		functionCreateDatatable,
-		PaginationItems,
-		RowsPerPage,
-		Search,
-		Sort,
-	} from '$lib/index.js';
+	import { functionCreateData, PaginationItems, RowsPerPage, Search, Sort } from '$lib/index.js';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -27,70 +20,75 @@
 		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' },
 	];
 
-	let stateDatatable = $state(
-		functionCreateDatatable({
-			parData: arrayUsers,
-			parSearchableColumns: ['name', 'city'],
-			parRowsPerPage: '5',
-			parSortBy: 'city',
-			parSortOrder: 'ascending',
-			parSearchString: '',
-			parActivePage: 1,
-		}),
-	);
+	let data = functionCreateData({
+		data: arrayUsers,
+		searchableKeys: ['name', 'city'],
+		rowsPerPage: '5',
+		sortBy: 'city',
+		sortOrder: 'ascending',
+		searchString: '',
+		activePage: 1,
+	});
 </script>
 
-<Datatable bind:propDatatable={stateDatatable}>
-	<p>
-		<span>Search:</span>
-		<Search propPlaceholder="Type here..." />
-	</p>
+<div>
+	<span>Search:</span>
+	<Search {data} placeholder="Type here..." />
+</div>
 
-	<p>
-		<RowsPerPage>
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="20">20</option>
-			<option value="30">30</option>
-			<option value="all">ALL</option>
-		</RowsPerPage>
-		<span>RESULTS PER PAGE</span>
-	</p>
-	<p>
-		<PaginationItems
-			propTag="button"
-			propDisabledStyle="background: darkgrey;"
-			propActiveStyle="background: blue;color:white;"
-		/>
-	</p>
+<br />
 
-	<table>
-		<thead>
+<div>
+	<RowsPerPage {data}>
+		<option value="5">5</option>
+		<option value="10">10</option>
+		<option value="20">20</option>
+		<option value="30">30</option>
+		<option value="all">ALL</option>
+	</RowsPerPage>
+	<span>RESULTS PER PAGE</span>
+</div>
+
+<br />
+
+<div>
+	<PaginationItems
+		{data}
+		propTag="button"
+		propDisabledStyle="background: darkgrey;"
+		propActiveStyle="background: blue;color:white;"
+	/>
+</div>
+
+<br />
+
+<table>
+	<thead>
+		<tr>
+			<th>
+				<Sort {data} key={'id'}>ID (click here)</Sort>
+			</th>
+			<th>
+				<Sort {data} key={'name'}>NAME (click here)</Sort>
+			</th>
+			<th>AGE</th>
+			<th>CITY</th>
+		</tr>
+	</thead>
+	<tbody>
+		{#each data.paginated as row}
 			<tr>
-				<th>
-					<Sort propDatatable={stateDatatable} propColumn={'id'}>ID (click here)</Sort>
-				</th>
-				<th>
-					<Sort propDatatable={stateDatatable} propColumn={'name'}>NAME (click here)</Sort>
-				</th>
-				<th>AGE</th>
-				<th>CITY</th>
+				<td>{row.id}</td>
+				<td>{row.name}</td>
+				<td>{row.age}</td>
+				<td>{row.city}</td>
 			</tr>
-		</thead>
-		<tbody>
-			{#each stateDatatable.arrayData as row}
-				<tr>
-					<td>{row.id}</td>
-					<td>{row.name}</td>
-					<td>{row.age}</td>
-					<td>{row.city}</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
-</Datatable>
+		{/each}
+	</tbody>
+</table>
 
-<p>
-	SHOWING {stateDatatable.numberFirstRow} TO {stateDatatable.numberLastRow} OF {stateDatatable
-		.arraySearched.length} ITEMS
-</p>
+<br />
+
+<div>
+	SHOWING {data.firstRow} TO {data.lastRow} OF {data.searched.length} ITEMS
+</div>

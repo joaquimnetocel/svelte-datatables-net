@@ -13,7 +13,8 @@
 	"eslint.validate": ["javascript", "svelte"], // AN ARRAY OF LANGUAGE IDS WHICH SHOULD BE VALIDATED BY ESLINT.
 	"svelte.enable-ts-plugin": true, // 'SVELTE FOR VS CODE' TYPESCRIPT PLUGIN WHICH PROVIDES INTELLISENSE FOR SVELTE FILES INSIDE TS/JS FILES.
 	"files.associations": {
-		"*.json": "jsonc" // ENABLE COMMENTS IN JSON FILES.
+		"*.json": "jsonc", // ENABLE COMMENTS IN JSON FILES.
+		"*.svelte.ts": "typescript"
 	},
 	/////
 	// EXPLORER SIDEBAR:

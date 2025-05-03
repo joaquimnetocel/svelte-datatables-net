@@ -1,29 +1,27 @@
 <svelte:options runes={true} />
 
 <script lang="ts" generics="Generic">
-	import { getContext } from 'svelte';
-	import { symbolContext } from './symbolContext.js';
 	import type { typeDatatable } from './typeDatatable.js';
 
 	// eslint-disable-next-line no-undef
-	type typeData = Generic;
-
-	let stateDatatable = getContext<typeDatatable<typeData>>(symbolContext);
+	type typeGeneric = Generic;
 
 	let {
-		propPlaceholder = 'Type here...',
+		data,
+		placeholder = 'Type here...',
 		...propRest
 	}: {
-		propPlaceholder: string;
+		data: typeDatatable<typeGeneric>;
+		placeholder: string;
 		class?: string;
 		style?: string;
 	} = $props();
 </script>
 
 <input
-	bind:value={stateDatatable.stringSearchString}
-	oninput={() => (stateDatatable.numberActivePage = 1)}
+	bind:value={data.searchString}
+	oninput={() => (data.activePage = 1)}
 	type="search"
-	placeholder={propPlaceholder}
+	{placeholder}
 	{...propRest}
 />
