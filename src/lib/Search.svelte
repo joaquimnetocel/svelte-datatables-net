@@ -1,7 +1,5 @@
-<svelte:options runes={true} />
-
 <script lang="ts" generics="Generic">
-	import type { typeDatatable } from './typeDatatable.js';
+	import type { typeData } from './typeData.js';
 
 	// eslint-disable-next-line no-undef
 	type typeGeneric = Generic;
@@ -9,9 +7,9 @@
 	let {
 		data,
 		placeholder = 'Type here...',
-		...propRest
+		...rest
 	}: {
-		data: typeDatatable<typeGeneric>;
+		data: typeData<typeGeneric>;
 		placeholder: string;
 		class?: string;
 		style?: string;
@@ -23,5 +21,5 @@
 	oninput={() => (data.activePage = 1)}
 	type="search"
 	{placeholder}
-	{...propRest}
+	{...rest}
 />

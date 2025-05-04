@@ -1,11 +1,8 @@
+import { functionCheckPageNumber } from './functionCheckPageNumber.js';
 import { functionSearch } from './functionSearch.js';
-import type { typeDatatable } from './typeDatatable.js';
+import type { typeData } from './typeData.js';
 
-function functionCheckPageNumber(value: number, max: number) {
-	return Number.isInteger(value) && value >= 1 && value <= max;
-}
-
-export const functionCreateData = function <Generic>({
+export const createData = function <Generic>({
 	data,
 	searchableKeys = undefined,
 	searchString = '',
@@ -23,7 +20,7 @@ export const functionCreateData = function <Generic>({
 	sortOrder?: 'ascending' | 'descending';
 	sortFunction?: (a: Generic, b: Generic) => number;
 	activePage?: number;
-}): typeDatatable<Generic> {
+}): typeData<Generic> {
 	if (sortFunction === undefined) {
 		const sortModifier = sortOrder === 'ascending' ? 1 : -1;
 		const functionDefaultSortFunction = function (elementA: Generic, elementB: Generic) {
@@ -69,7 +66,7 @@ export const functionCreateData = function <Generic>({
 		sortOrder: sortOrder,
 	};
 
-	const estado = $state<typeDatatable<Generic>>(objeto);
+	const estado = $state<typeData<Generic>>(objeto);
 
 	$effect(() => {
 		estado.searched = functionSearch({

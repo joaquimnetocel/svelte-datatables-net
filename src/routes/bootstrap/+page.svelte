@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		Datatable,
-		functionCreateDatatable,
-		PaginationItems,
-		RowsPerPage,
-		Search,
-		Sort,
-	} from '$lib/index.js';
+	import { createData, Pagination, RowsPerPage, Search, Sort } from '$lib/index.js';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -27,17 +20,15 @@
 		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' },
 	];
 
-	let stateDatatable = $state(
-		functionCreateDatatable({
-			parData: arrayUsers,
-			parSearchableColumns: ['name', 'city'],
-			parRowsPerPage: '5',
-			parSortBy: 'city',
-			parSearchString: '',
-			parSortOrder: 'ascending',
-			parActivePage: 1,
-		}),
-	);
+	let data = createData({
+		data: arrayUsers,
+		searchableKeys: ['name', 'city'],
+		rowsPerPage: '5',
+		sortBy: 'city',
+		searchString: '',
+		sortOrder: 'ascending',
+		activePage: 1,
+	});
 </script>
 
 <svelte:head>
@@ -49,78 +40,83 @@
 	/>
 </svelte:head>
 
-<Datatable bind:propDatatable={stateDatatable}>
-	<div class="container-sm">
-		<div class="mx-3">
-			<!-- SEARCH & RESULTS PER PAGE -->
-			<div class="row align-items-center mb-2">
-				<div class="col-12 col-md-6 text-md-start text-center mb-1 mb-md-0">
-					<div class="d-md-flex align-items-md-center">
-						<span class="me-1">Search:</span>
-						<Search propPlaceholder="Type here..." class="form-control form-control-sm" />
-					</div>
-				</div>
-				<div class="col-12 col-md-6 text-md-end text-center">
-					<RowsPerPage class="d-inline form-select form-select-sm w-auto">
-						<option value="5">5</option>
-						<option value="10">10</option>
-						<option value="20">20</option>
-						<option value="30">30</option>
-						<option value="all">ALL</option>
-					</RowsPerPage>
-					<span>RESULTS PER PAGE</span>
+<div class="container-sm">
+	<div class="mx-3">
+		<!-- SEARCH & RESULTS PER PAGE -->
+		<div class="row align-items-center mb-2">
+			<div class="col-12 col-md-6 text-md-start text-center mb-1 mb-md-0">
+				<div class="d-md-flex align-items-md-center">
+					<span class="me-1">Search:</span>
+					<Search {data} placeholder="Type here..." class="form-control form-control-sm" />
 				</div>
 			</div>
-			<!---->
-			<!-- PAGINATION -->
-			<div class="d-flex justify-content-center justify-content-md-end">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
-						<PaginationItems
-							propTag="li"
-							class="page-item"
-							propInnerClass="page-link"
-							propDisabledClass="disabled"
-							propActiveClass="active"
-						/>
-					</ul>
-				</nav>
-			</div>
-			<!---->
-			{#if stateDatatable.arraySearched.length === 0}
-				<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
-			{:else}
-				<!-- TABLE -->
-				<table class="table table-striped table-sm">
-					<thead>
-						<tr>
-							<th>
-								<Sort propDatatable={stateDatatable} propColumn={'id'}>ID</Sort>
-							</th>
-							<th>
-								<Sort propDatatable={stateDatatable} propColumn={'name'}>NAME</Sort>
-							</th>
-							<th>AGE</th>
-							<th>CITY</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each stateDatatable.arrayData as row}
-							<tr>
-								<td>{row.id}</td>
-								<td>{row.name}</td>
-								<td>{row.age}</td>
-								<td>{row.city}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-				<!---->
-			{/if}
-			<div>
-				SHOWING {stateDatatable.numberFirstRow} TO {stateDatatable.numberLastRow} OF {stateDatatable
-					.arraySearched.length} ITEMS
+			<div class="col-12 col-md-6 text-md-end text-center">
+				<RowsPerPage {data} class="d-inline form-select form-select-sm w-auto">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="all">ALL</option>
+				</RowsPerPage>
+				<span>RESULTS PER PAGE</span>
 			</div>
 		</div>
+		<!---->
+
+		<!-- PAGINATION -->
+		<div class="d-flex justify-content-center justify-content-md-end">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<Pagination
+						{data}
+						current={1}
+						onchange={(par) => {
+							data.activePage = par;
+						}}
+						styleActive="background-color:lightblue; padding:0px 10px;"
+						threshold={10}
+						classWrapper="pagination"
+						classDisabled="disabled"
+						classActive="active"
+						class="page-link"
+					/>
+				</ul>
+			</nav>
+		</div>
+		<!---->
+
+		{#if data.searched.length === 0}
+			<div class="text-center mt-5"><strong>NO RECORDS FOUND.</strong></div>
+		{:else}
+			<!-- TABLE -->
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th>
+							<Sort {data} key={'id'}>ID</Sort>
+						</th>
+						<th>
+							<Sort {data} key={'name'}>NAME</Sort>
+						</th>
+						<th>AGE</th>
+						<th>CITY</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each data.paginated as row}
+						<tr>
+							<td>{row.id}</td>
+							<td>{row.name}</td>
+							<td>{row.age}</td>
+							<td>{row.city}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+			<!---->
+		{/if}
+		<div>
+			SHOWING {data.firstRow} TO {data.lastRow} OF {data.searched.length} ITEMS
+		</div>
 	</div>
-</Datatable>
+</div>

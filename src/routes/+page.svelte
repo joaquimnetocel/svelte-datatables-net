@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { functionCreateData, PaginationItems, RowsPerPage, Search, Sort } from '$lib/index.js';
+	import { createData, RowsPerPage, Search, Sort } from '$lib/index.js';
+	import Pagination from '$lib/Pagination.svelte';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },
@@ -20,7 +21,7 @@
 		{ id: 16, name: 'Bruna', age: 31, city: 'Las Vegas' },
 	];
 
-	let data = functionCreateData({
+	let data = createData({
 		data: arrayUsers,
 		searchableKeys: ['name', 'city'],
 		rowsPerPage: '5',
@@ -52,11 +53,14 @@
 <br />
 
 <div>
-	<PaginationItems
+	<Pagination
 		{data}
-		propTag="button"
-		propDisabledStyle="background: darkgrey;"
-		propActiveStyle="background: blue;color:white;"
+		current={1}
+		onchange={(par) => {
+			data.activePage = par;
+		}}
+		threshold={10}
+		styleActive="background-color:lightblue;"
 	/>
 </div>
 

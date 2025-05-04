@@ -1,4 +1,4 @@
-export type typeDatatable<Generic> = {
+export type typeData<Generic> = {
 	original: Generic[];
 	sorted: Generic[];
 	searched: Generic[];
