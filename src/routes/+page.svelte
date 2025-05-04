@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { createData, RowsPerPage, Search, Sort } from '$lib/index.js';
-	import Pagination from '$lib/Pagination.svelte';
+	import { createData, Pagination, RowsPerPage, Search, Sort } from '$lib/index.js';
 
 	const arrayUsers = [
 		{ id: 9, name: 'Denzel', age: 24, city: 'Newcastle' },

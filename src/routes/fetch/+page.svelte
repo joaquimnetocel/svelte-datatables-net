@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { createData, Pagination, RowsPerPage, Search, Sort } from '$lib/index.js';
-	import type { PageData } from './$types.js';
+	import type { PageProps } from './$types.js';
 
-	const { data }: { data: PageData } = $props();
+	const { data }: PageProps = $props();
 
 	let statedata = createData({
 		data: data.arrayData,
