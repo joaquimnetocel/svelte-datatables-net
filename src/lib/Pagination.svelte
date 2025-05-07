@@ -17,7 +17,9 @@
 </script>
 
 <PaginationComponent
-	total={Math.ceil(data.searched.length / data.rowsPerPage)}
+	total={data.rowsPerPage === 0 || data.searched.length === 0
+		? 1
+		: Math.ceil(data.searched.length / data.rowsPerPage)}
 	bind:current
 	{...rest}
 />

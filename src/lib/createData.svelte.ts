@@ -45,8 +45,12 @@ export const createData = function <Generic>({
 	});
 
 	const sorted = searched.sort(sortFunction);
+
 	const numericRowsPerPage = rowsPerPage === 'all' ? sorted.length : parseInt(rowsPerPage);
-	const lastPage = Math.ceil(sorted.length / numericRowsPerPage);
+	const lastPage =
+		numericRowsPerPage === 0 || sorted.length === 0
+			? 1
+			: Math.ceil(sorted.length / numericRowsPerPage);
 
 	const objeto = {
 		original: data,
@@ -82,7 +86,10 @@ export const createData = function <Generic>({
 		estado.firstRow = (estado.activePage - 1) * estado.rowsPerPage + 1;
 		estado.lastRow = Math.min(estado.sorted.length, estado.activePage * estado.rowsPerPage);
 		estado.paginated = estado.sorted.slice(estado.firstRow - 1, estado.lastRow);
-		estado.lastPage = Math.ceil(estado.sorted.length / estado.rowsPerPage);
+		estado.lastPage =
+			estado.rowsPerPage === 0 || estado.sorted.length === 0
+				? 1
+				: Math.ceil(estado.sorted.length / estado.rowsPerPage);
 	});
 
 	return estado;
