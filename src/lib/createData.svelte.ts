@@ -27,6 +27,11 @@ export const createData = function <Generic>({
 			if (sortBy === undefined) {
 				return 0;
 			}
+
+			if (typeof elementA[sortBy] === 'string' && typeof elementB[sortBy] === 'string') {
+				return elementA[sortBy].localeCompare(elementB[sortBy]);
+			}
+
 			if (elementA[sortBy] < elementB[sortBy]) {
 				return -1 * sortModifier;
 			}

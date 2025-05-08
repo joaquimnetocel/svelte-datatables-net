@@ -1,6 +1,6 @@
 {
 	"name": "svelte-datatables-net",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"description": "svelte-datatables-net is a svelte/sveltekit component that turns data into an interactive HTML table. Inspired by datatables.net.",
 	"repository": {
 		"type": "git",

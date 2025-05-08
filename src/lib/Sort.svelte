@@ -20,7 +20,7 @@
 	} = $props();
 	/////
 	// FUNCTIONS
-	function functionUpdateSortConfig() {
+	function functionClick() {
 		if (data.sortBy === key) {
 			data.sortOrder = data.sortOrder === 'ascending' ? 'descending' : 'ascending';
 			data.sortFunction = sortFunction;
@@ -32,6 +32,11 @@
 	}
 	function functionDefaultSortFunction(elementA: typeGeneric, elementB: typeGeneric) {
 		const sortModifier = data.sortOrder === 'ascending' ? 1 : -1;
+
+		if (typeof elementA[key] === 'string' && typeof elementB[key] === 'string') {
+			return elementA[key].localeCompare(elementB[key]) * sortModifier;
+		}
+
 		if (elementA[key] < elementB[key]) {
 			return -1 * sortModifier;
 		}
@@ -47,7 +52,7 @@
 	role="button"
 	tabindex="0"
 	style="cursor:pointer;white-space: nowrap;"
-	onclick={functionUpdateSortConfig}
+	onclick={functionClick}
 >
 	{@render children()}
 	{#if data.sortBy === key}
