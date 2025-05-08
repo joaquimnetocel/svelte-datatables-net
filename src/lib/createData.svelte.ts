@@ -52,27 +52,24 @@ export const createData = function <Generic>({
 	const sorted = searched.sort(sortFunction);
 
 	const numericRowsPerPage = rowsPerPage === 'all' ? sorted.length : parseInt(rowsPerPage);
-	const lastPage =
-		numericRowsPerPage === 0 || sorted.length === 0
-			? 1
-			: Math.ceil(sorted.length / numericRowsPerPage);
+	const lastPage = Math.ceil(Math.max(1, sorted.length) / Math.max(1, numericRowsPerPage));
 
 	const objeto = {
 		original: data,
 		sorted,
 		searched,
-		paginated: searched.slice(0, numericRowsPerPage),
+		paginated: sorted.slice(0, numericRowsPerPage),
 		rowsPerPageString: rowsPerPage,
 		rowsPerPage: numericRowsPerPage,
 		lastPage,
 		activePage: functionCheckPageNumber(activePage, lastPage) ? activePage : 1,
-		firstRow: (activePage - 1) * numericRowsPerPage + 1,
-		lastRow: Math.min(searched.length, activePage * numericRowsPerPage),
+		firstRow: numericRowsPerPage === 0 ? 0 : (activePage - 1) * numericRowsPerPage + 1,
+		lastRow: Math.min(sorted.length, activePage * numericRowsPerPage),
 		searchString,
 		searchableKeys,
-		sortFunction: sortFunction,
-		sortBy: sortBy,
-		sortOrder: sortOrder,
+		sortFunction,
+		sortBy,
+		sortOrder,
 	};
 
 	const estado = $state<typeData<Generic>>(objeto);
@@ -88,13 +85,17 @@ export const createData = function <Generic>({
 		estado.sorted = estado.searched.sort(estado.sortFunction);
 	});
 	$effect(() => {
-		estado.firstRow = (estado.activePage - 1) * estado.rowsPerPage + 1;
+		estado.rowsPerPage =
+			estado.rowsPerPageString === 'all'
+				? estado.sorted.length
+				: parseInt(estado.rowsPerPageString);
+		estado.firstRow =
+			estado.rowsPerPage === 0 ? 0 : (estado.activePage - 1) * estado.rowsPerPage + 1;
 		estado.lastRow = Math.min(estado.sorted.length, estado.activePage * estado.rowsPerPage);
 		estado.paginated = estado.sorted.slice(estado.firstRow - 1, estado.lastRow);
-		estado.lastPage =
-			estado.rowsPerPage === 0 || estado.sorted.length === 0
-				? 1
-				: Math.ceil(estado.sorted.length / estado.rowsPerPage);
+		estado.lastPage = Math.ceil(
+			Math.max(1, estado.sorted.length) / Math.max(1, estado.rowsPerPage),
+		);
 	});
 
 	return estado;
